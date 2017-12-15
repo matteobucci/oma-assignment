@@ -1,20 +1,20 @@
 package main.java.assignment.firstsolution;
 
-import main.java.assignment.model.ModelWrapper;
+import main.java.assignment.model.IModelWrapper;
 
 import java.util.*;
 
 public class IterativeFirstSolutionGenerator implements IFirstSolutionGenerator{
 
-    private ModelWrapper model;
+    private IModelWrapper model;
 
-    public IterativeFirstSolutionGenerator(ModelWrapper model){
+    public IterativeFirstSolutionGenerator(IModelWrapper model){
         this.model = model;
     }
 
     @Override
     public void generateFirstSolution() {
-        model.clearExamsIfDone();
+        model.clearExamsMatrix();
 
         Random random = new Random();
         int attemp = 0;
@@ -32,7 +32,7 @@ public class IterativeFirstSolutionGenerator implements IFirstSolutionGenerator{
             int chosenExam = random.nextInt(examLeft.size());
             int actualExam = examLeft.get(chosenExam);
             examLeft.remove(chosenExam);
-            while(!model.canIAssignWithoutAnyConflict(actualTimeSlot, actualExam)){
+            while(model.estimateNumberOfConflictOfExam(actualTimeSlot, actualExam) != 0){
 
                 actualTimeSlot = (actualTimeSlot+1)% model.getTimeslotsNumber();
 
@@ -41,22 +41,19 @@ public class IterativeFirstSolutionGenerator implements IFirstSolutionGenerator{
                     int min = Integer.MAX_VALUE;
                     int ind = -1;
                     for(int j=0; j<model.getTimeslotsNumber(); j++){
-                        int tsConf = model.howManyConflictAnExamHave(j, actualExam);
+                        int tsConf = model.estimateNumberOfConflictOfExam(j, actualExam);
                         if(tsConf < min){
                             ind = j;
                             min = tsConf;
                         }
                     }
                     if(ind != -1) actualTimeSlot = ind;
-                    model.addConflict(actualTimeSlot, actualExam);
                     break;
                 }
             }
             model.assignExams(actualTimeSlot, actualExam, true);
         }
 
-
-        model.setAsDone();
     }
 
 }

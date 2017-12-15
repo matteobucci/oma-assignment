@@ -1,46 +1,40 @@
 package main.java.assignment.solution;
 
 import javafx.util.Pair;
-import main.java.assignment.model.ModelWrapper;
+import main.java.assignment.model.IModelWrapper;
 
 import java.util.Random;
 
 public class RandomSolutionGenerator extends SolutionGeneration {
 
-    ModelWrapper model;
+    IModelWrapper model;
 
-    public RandomSolutionGenerator(ModelWrapper model){
+    public RandomSolutionGenerator(IModelWrapper model){
         super(model);
         this.model = model;
     }
 
     @Override
     public void iterate() {
-        if(model.getNumberOfConflicts() != 0){
-            Pair<Integer, Integer> conf = model.getConflict();
-            int startConf = model.howManyConflictAnExamHave(conf.getKey(), conf.getValue());
+        if(model.getConflictNumber() != 0){
+            int actualExam = model.getRandomConflictedExam();
+            int oldConf = model.getNumberOfConflictOfExam(actualExam);
+            int oldTimeSlot =  model.getExamTimeslot(actualExam);
+
+
+
             for (int i = 0; i < model.getTimeslotsNumber(); i++) {
-                int newConf = model.howManyConflictAnExamHave(i, conf.getValue());
-                if (startConf > newConf) {
-                    model.assignExams(conf.getKey(), conf.getValue(), false);
-                    model.assignExams(i, conf.getValue(), true);
-                    if (newConf == 0) {
-                        System.out.println("Risolto conflitto per " + conf.getValue());
-                    } else {
-                        System.out.println("Prima "+ conf.getValue()+" conflittava con: " + startConf + " esami ora con " + newConf);
-                        model.addConflict(i, conf.getValue());
-                    }
-                    break;
-                }
-                if(i == model.getTimeslotsNumber()-1){
-                    System.out.println("Non sono riuscito a migliorare la situazione per" + conf.getValue());
-                    int newSlot = new Random().nextInt(model.getTimeslotsNumber());
-                    model.assignExams(newSlot, conf.getValue(), true);
-                    model.assignExams(conf.getKey(), conf.getValue(), false);
-                    model.addConflict(newSlot, conf.getValue());
+                int newConf = model.estimateNumberOfConflictOfExam(i, actualExam);
+                if(newConf < oldConf){
+                    System.out.println("L'esame " + actualExam + " aveva " + oldConf + " conflitti ora ne ha " + newConf);
+                    System.out.println("Sposto l'esame dal timeslot " + oldTimeSlot + " al timeslot " + i);
+                    model.assignExams(oldTimeSlot, actualExam, false);
+                    model.assignExams(i, actualExam, true);
+                    return;
                 }
             }
-        }
 
+        }
     }
+
 }

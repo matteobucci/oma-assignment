@@ -7,6 +7,8 @@ public class ScoreCalculator implements IScoreCalculator{
     AssignmentModel bestUntilNow = null;
     double bestPointUntilNow = Integer.MAX_VALUE;
 
+    private final static double CONFLICT_WEIGTH = 10;
+
     @Override
     public double getScore(AssignmentModel model, int conflicts) {
         boolean[][] examMatrix = model.getExamMatrix();
@@ -43,7 +45,7 @@ public class ScoreCalculator implements IScoreCalculator{
             System.out.println("Trovato migliore fino ad ora: " + somma);
         }
 
-        return somma;
+        return somma + (conflicts * CONFLICT_WEIGTH);
     }
 
     public AssignmentModel getBestUntilNow() {

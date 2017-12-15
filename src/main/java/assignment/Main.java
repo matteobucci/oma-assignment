@@ -7,18 +7,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import main.java.assignment.firstsolution.*;
 import main.java.assignment.model.AssignmentModel;
+import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.model.ModelWrapper;
 import main.java.assignment.solution.RandomSolutionGenerator;
-import main.java.assignment.solution.SolutionGeneration;
 import main.java.assignment.view.CanvasViewer;
 import org.apache.commons.cli.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
@@ -143,7 +140,7 @@ public class Main extends Application {
         };
 
 
-        ModelWrapper model = new ModelWrapper(timeSlotNumber, examNumber, calculator, deltaCalculator);
+        IModelWrapper model = new ModelWrapper(timeSlotNumber, examNumber, calculator, deltaCalculator);
 
         Scanner scannerStu = new Scanner(stuFile);
         while(scannerStu.hasNext()){
@@ -166,10 +163,10 @@ public class Main extends Application {
         ModelPresenter presenter = new ModelPresenter(canvasViewer, model);
         ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);
 
-        IEuristic euristic = new IEuristic(new NopeFirstSolutionGenerator(model), new RandomSolutionGenerator(model)) {
+        IEuristic euristic = new IEuristic(new RandomFirstSolutionGenerator(model), new RandomSolutionGenerator(model)) {
             @Override
             public void iterate() {
-                if(model.isDone()){
+                if(model.isAssignmentComplete()){
                     solutionGenerator.iterate();
                 }else{
                     firstSolutionGenerator.generateFirstSolution();

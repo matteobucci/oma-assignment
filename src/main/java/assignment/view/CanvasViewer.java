@@ -4,7 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import main.java.assignment.model.ModelWrapper;
+import main.java.assignment.model.IModelWrapper;
 
 
 public class CanvasViewer implements ModelViewer, ModelStatsViewer{
@@ -16,20 +16,20 @@ public class CanvasViewer implements ModelViewer, ModelStatsViewer{
     public CanvasViewer(Canvas canvas){
         this.canvas = canvas;
         gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.RED);
+        gc.setFill(Color.GREEN);
         gc.setStroke(Color.BLUE);
         gc.setLineWidth(1);
         gc.setFont(Font.getDefault());
     }
 
     @Override
-    public void printModel(ModelWrapper model) {
+    public void printModel(IModelWrapper model) {
         gc.clearRect(0,0, canvas.getWidth(), canvas.getHeight());
         drawExams(model);
         drawBaseMatrix(model);
     }
 
-    private void drawBaseMatrix(ModelWrapper wrapper){
+    private void drawBaseMatrix(IModelWrapper wrapper){
         int timeSlotNumber = wrapper.getTimeslotsNumber();
         int examNumber = wrapper.getExamsNumber();
 
@@ -47,7 +47,7 @@ public class CanvasViewer implements ModelViewer, ModelStatsViewer{
 
     }
 
-    private void drawExams(ModelWrapper wrapper){
+    private void drawExams(IModelWrapper wrapper){
         int timeSlotNumber = wrapper.getTimeslotsNumber();
         int examNumber = wrapper.getExamsNumber();
 
@@ -57,9 +57,19 @@ public class CanvasViewer implements ModelViewer, ModelStatsViewer{
 
         for(int i =0; i<timeSlotNumber; i++){
             for(int j =0; j<examNumber; j++){
-                if(wrapper.isExamAssigned(i, j)) gc.fillRect(widthTS* i, heigtEX * j, widthTS, heigtEX);
+                if(wrapper.isExamAssigned(i, j)){
+                    gc.fillRect(widthTS* i, heigtEX * j, widthTS, heigtEX);
+                }
             }
         }
+
+        gc.setFill(Color.RED);
+        for(int i=0; i<timeSlotNumber; i++){
+            for(Integer index : wrapper.getTimeslotExams(i)){
+                if(wrapper.isExamConflicted(index)) gc.fillRect(widthTS* i, heigtEX * index, widthTS, heigtEX);
+            }
+        }
+        gc.setFill(Color.GREEN);
 
 
     }

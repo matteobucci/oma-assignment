@@ -6,36 +6,38 @@ import main.java.assignment.IScoreCalculator;
 
 import java.util.*;
 
-public class ModelWrapper {
+public class ModelWrapper implements IModelWrapper {
 
-    private boolean done = false;
     private double scoreCache = 0;
     private boolean isScoreValid = false;
 
-    public interface ModelListener{
-        void onModelChanged();
-    }
+    Random random = new Random();
 
     private List<ModelListener> listeners = new ArrayList<>();
     private AssignmentModel model;
-    private List<Pair<Integer, Integer>> conflicts = new ArrayList<>();
     private IScoreCalculator calculator;
     private IDeltaScoreCalculator deltaCalculator;
+    private Set<Integer> conflictedExams = new HashSet<>();
+    private Set<Integer> examsToAssign = new HashSet<>();
 
     public ModelWrapper(int slotsNumber, int examsNumber, IScoreCalculator calculator, IDeltaScoreCalculator deltaCalculator){
         model = new AssignmentModel(slotsNumber,examsNumber);
         this.calculator = calculator;
         this.deltaCalculator = deltaCalculator;
+        clearExamsMatrix();
     }
 
+    @Override
     public AssignmentModel getAssignmentModel() {
         return model;
     }
 
+    @Override
     public void setListener(ModelListener listener){
         listeners.add(listener);
     }
 
+    @Override
     public void addEnrolledStudent(int examId, int studentId){
         Map<Integer, Set<Integer>> enrolledStudents = model.getEnrolledStudents();
         if(!enrolledStudents.containsKey(studentId)){
@@ -50,24 +52,167 @@ public class ModelWrapper {
         enrolledStudents.get(studentId).add(examId);
     }
 
-    public int getTimeslotsNumber(){
+    @Override
+    public int getTimeslotsNumber() {
         return model.getExamMatrix().length;
     }
 
-    public int getExamsNumber(){
+    @Override
+    public int getExamsNumber() {
         return model.getExamMatrix()[0].length;
     }
 
-    public boolean isExamAssigned(int timeSlot, int exam){
+    @Override
+    public int getStudentNumber() {
+        return model.getEnrolledStudents().size();
+    }
+
+    @Override
+    public int getRandomConflictedExam() {
+        int index = random.nextInt(conflictedExams.size()); //Seleziono l'indice da prendere
+        Iterator<Integer> iter = conflictedExams.iterator(); //Mi creo l'iteratore
+        for (int i = 0; i < index; i++) {
+            iter.next();
+        }
+        return iter.next(); //Ad un certo punto a caso prendo l'esame in questione
+    }
+
+    @Override
+    public boolean isExamAssigned(int timeSlot, int exam) {
         return model.getExamMatrix()[timeSlot][exam];
     }
 
-    public void assignExams(int timeSlot, int exam, boolean value){
+    @Override
+    public void assignExams(int timeSlot, int exam, boolean value) {
         model.getExamMatrix()[timeSlot][exam] = value;
-        if(done){
-            callListeners();
+
+        if(value)
+            examsToAssign.remove(exam);
+        else
+            examsToAssign.add(exam);
+
+        isScoreValid = false; //Il punteggio andrà ricalcolato
+        processConflict(exam, timeSlot, value);
+        callListeners();
+    }
+
+    @Override
+    public void clearExamsMatrix() {
+        for(int i=0; i<model.getExamMatrix().length; i++){
+            for(int j=0; j<model.getExamMatrix()[i].length; j++){
+                model.getExamMatrix()[i][j] = false;
+            }
         }
-        isScoreValid = false;
+        for(int i=0; i<getExamsNumber(); i++) examsToAssign.add(i);
+    }
+
+    @Override
+    public boolean isAssignmentComplete() {
+        return examsToAssign.isEmpty();
+    }
+
+    @Override
+    public boolean isSolutionValid() {
+        return conflictedExams.isEmpty();
+    }
+
+    @Override
+    public int getExamTimeslot(int exam) {
+        for(int i=0; i<getTimeslotsNumber(); i++){
+            if(getAssignmentModel().getExamMatrix()[i][exam]) return i;
+        }
+        return -1;
+    }
+
+    @Override
+    public Set<Integer> getTimeslotExams(int timeslot) {
+        Set<Integer> result = new HashSet<>();
+        for(int i=0; i<getExamsNumber(); i++){
+            if(getAssignmentModel().getExamMatrix()[timeslot][i]) result.add(i);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean isExamConflicted(int exam) {
+        return conflictedExams.contains(exam);
+    }
+
+    @Override
+    public int getConflictNumber() {
+        return conflictedExams.size();
+    }
+
+    @Override
+    public int estimateNumberOfConflictOfExam(int timeslot, int exam) {
+        Set<Integer> conflicts = new HashSet<>();
+        Set<Integer> examsOfTimeSlot = getTimeslotExams(timeslot);
+        for(Integer index: examsOfTimeSlot){
+            if(!index.equals(exam) && areTwoExamsInConflict(exam, index)) conflicts.add(index);
+        }
+        conflicts.addAll(getConflictedExamsOfTimeSlot(timeslot));
+
+        return conflicts.size();
+    }
+
+    @Override
+    public int getNumberOfConflictOfExam(int exam) {
+        int timeSlot = getExamTimeslot(exam);
+        return getConflictedExamsOfTimeSlot(timeSlot).size();
+    }
+
+
+    private Set<Integer> getConflictedExamsOfTimeSlot(int timeslot){
+        Set<Integer> result = new HashSet<>();
+        for(Integer index: getTimeslotExams(timeslot)){
+            if(isExamConflicted(index)) result.add(index);
+        }
+        return result;
+    }
+
+    private boolean areTwoExamsInConflict(int a, int b){
+        return getAssignmentModel().getConflictMatrix()[a][b] != 0;
+    }
+
+    private void processConflict(int exam, int timeslot, boolean value){
+        boolean atLeastAConflict = false;
+        if(value){
+            //Confronto il mio nuovo esame con tutti i suoi compagni di timeslot
+            for(Integer actualIndex: getTimeslotExams(timeslot)){
+                if(!actualIndex.equals(exam) && areTwoExamsInConflict(exam, actualIndex)){
+                    conflictedExams.add(actualIndex);
+                    atLeastAConflict = true;
+                }
+            }
+            //Se c'è stato almeno un conflitto anche lui è in conflitto
+            if(atLeastAConflict) conflictedExams.add(exam);
+        }else{
+            conflictedExams.remove(exam); //Rimuovo l'esame rimosso dai conflitti
+            boolean isInConflictNow;
+            //Per ogni esame che ancora è segnalato come in conflitto all'interno del time slot
+            for(Integer actualIndex: getConflictedExamsOfTimeSlot(timeslot)){
+                isInConflictNow = false;
+                //Confronto ogni altro esame in conflitto e cerco di capire se è in conflitto con i rimanenti
+                for(Integer compareIndex: getConflictedExamsOfTimeSlot(timeslot)){
+                    if(!Objects.equals(actualIndex, compareIndex) && areTwoExamsInConflict(actualIndex, compareIndex)){
+                        isInConflictNow = true;
+                        break;
+                        //Siccome è in conflitto, rimane nel set degli elementi in conflitto
+                    }
+                }
+                //Siccome non è più in conflitto con nessuno, lo rimuovo dal set dei conflitti
+                if(!isInConflictNow) conflictedExams.remove(actualIndex);
+            }
+        }
+    }
+
+    @Override
+    public double getActualScore() {
+        if(!isScoreValid){
+            scoreCache = calculator.getScore(model, 0); //TODO: INSERIRE IL NUMERO DI CONFLITTI ATTUALI
+            isScoreValid = true;
+        }
+        return scoreCache;
     }
 
     private void callListeners() {
@@ -76,97 +221,5 @@ public class ModelWrapper {
         }
     }
 
-    public int getStudentNumber(){
-        return model.getEnrolledStudents().size();
-    }
-
-    public boolean doesExamConflict(int exam1, int exam2){
-        return model.getConflictMatrix()[exam2][exam1] != 0;
-    }
-
-    public Set<Integer> getExamAssignedToTimeSlot(int timeslot){
-        Set<Integer> result = new HashSet<>();
-
-        for(int i=0; i<model.getExamMatrix()[timeslot].length; i++){
-            if(model.getExamMatrix()[timeslot][i]) result.add(i);
-        }
-
-        return result;
-    }
-
-    public void clearExamsIfDone(){
-       if(done){
-           clearExams();
-       }
-    }
-
-    public void clearExams() {
-        for(int i=0; i<model.getExamMatrix().length; i++){
-            for(int j=0; j<model.getExamMatrix()[i].length; j++){
-                model.getExamMatrix()[i][j] = false;
-            }
-        }
-        conflicts.clear();
-    }
-
-    public void setAsDone(){
-        done = true;
-        callListeners();
-    }
-
-    public boolean canIAssignWithoutAnyConflict(int timeslot, int exam){
-
-        for(Integer actualExam : getExamAssignedToTimeSlot(timeslot)){
-            if(doesExamConflict(actualExam, exam)){
-                return false;
-            }
-        }
-        return true;
-
-    }
-
-    public void addConflict(int timeSlot, int exam) {
-        conflicts.add(new Pair<>(timeSlot, exam));
-    }
-
-    public Pair<Integer, Integer> getConflict(){
-        if(conflicts.isEmpty()){
-            return null;
-        }else{
-            return conflicts.remove(0);
-        }
-    }
-
-
-    public int getNumberOfConflicts() {
-        return conflicts.size();
-    }
-
-    public int howManyConflictAnExamHave(int timeslot, int exam){
-
-        int result = 0;
-
-        for(Integer actualExam : getExamAssignedToTimeSlot(timeslot)){
-            if(doesExamConflict(actualExam, exam)){
-               result++;
-            }
-        }
-        return result;
-    }
-
-    public double getActualScore(){
-        if(!isScoreValid){
-            scoreCache = calculator.getScore(model, getNumberOfConflicts());
-            isScoreValid = true;
-        }
-        return scoreCache;
-    }
-
-    public boolean isDone(){
-        return done;
-    }
-
-    //TODO: SWAP UTILITIES
-    //TODO: CONSTRAINT CHECK WITH EXCEPTION
 
 }

@@ -1,15 +1,14 @@
 package main.java.assignment;
 
-import main.java.assignment.model.ModelWrapper;
-import main.java.assignment.view.ModelStatsViewer;
+import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.view.ModelViewer;
 
-public class ModelPresenter implements ModelWrapper.ModelListener {
+public class ModelPresenter implements IModelWrapper.ModelListener {
 
-    private ModelWrapper wrapper;
+    private IModelWrapper wrapper;
     private ModelViewer viewer;
 
-    public ModelPresenter(ModelViewer viewer, ModelWrapper wrapper){
+    public ModelPresenter(ModelViewer viewer, IModelWrapper wrapper){
         this.wrapper = wrapper;
         this.viewer = viewer;
         init();

@@ -1,13 +1,13 @@
 package main.java.assignment.util;
 
-import main.java.assignment.model.ModelWrapper;
+import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.solution.SolutionGeneration;
 
 public abstract class TimedSolutionGenerator extends SolutionGeneration{
 
     private long startTime = 0l;
 
-    public TimedSolutionGenerator(ModelWrapper model) {
+    public TimedSolutionGenerator(IModelWrapper model) {
         super(model);
     }
 

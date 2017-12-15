@@ -1,12 +1,12 @@
 package main.java.assignment.solution;
 
-import main.java.assignment.model.ModelWrapper;
+import main.java.assignment.model.IModelWrapper;
 
 abstract public class  SolutionGeneration implements ISolutionGenerator{
 
-    ModelWrapper model;
+    IModelWrapper model;
 
-    public SolutionGeneration(ModelWrapper model){
+    public SolutionGeneration(IModelWrapper model){
         this.model = model;
     }
 

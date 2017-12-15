@@ -1,9 +1,9 @@
 package main.java.assignment.view;
 
-import main.java.assignment.model.ModelWrapper;
+import main.java.assignment.model.IModelWrapper;
 
 public interface ModelViewer {
 
-    public void printModel(ModelWrapper model);
+    public void printModel(IModelWrapper model);
 
 }
