@@ -1,7 +1,6 @@
 package main.java.assignment.firstsolution;
 
 import main.java.assignment.model.ModelWrapper;
-import main.java.assignment.util.TimedSolutionGenerator;
 
 import java.util.Random;
 
@@ -22,7 +21,7 @@ public class RandomFirstSolutionGenerator implements IFirstSolutionGenerator{
         for(int i=0; i<model.getExamsNumber(); i++){
             tentativi = 0;
             int actualTimeSlot = random.nextInt(model.getTimeslotsNumber());
-            while(!model.canIAssignExamHere(actualTimeSlot, i) && tentativi < model.getTimeslotsNumber()*2){
+            while(!model.canIAssignWithoutAnyConflict(actualTimeSlot, i) && tentativi < model.getTimeslotsNumber()*2){
                 actualTimeSlot = random.nextInt(model.getTimeslotsNumber());
                 tentativi++;
             }

@@ -114,7 +114,7 @@ public class ModelWrapper {
         callListeners();
     }
 
-    public boolean canIAssignExamHere(int timeslot, int exam){
+    public boolean canIAssignWithoutAnyConflict(int timeslot, int exam){
 
         for(Integer actualExam : getExamAssignedToTimeSlot(timeslot)){
             if(doesExamConflict(actualExam, exam)){
@@ -165,5 +165,8 @@ public class ModelWrapper {
     public boolean isDone(){
         return done;
     }
+
+    //TODO: SWAP UTILITIES
+    //TODO: CONSTRAINT CHECK WITH EXCEPTION
 
 }

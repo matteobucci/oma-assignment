@@ -2,7 +2,6 @@ package main.java.assignment.firstsolution;
 import java.util.ArrayList;
 import java.util.List;
 import main.java.assignment.model.ModelWrapper;
-import main.java.assignment.util.TimedSolutionGenerator;
 
 import java.util.Random;
 
@@ -46,7 +45,7 @@ public class NopeFirstSolutionGenerator implements IFirstSolutionGenerator {
             int cur_exm = model.getExamsNumber() - exm_left;
             //For each timeslot
             for(int t=0; t < T; t++) {
-                if (model.canIAssignExamHere(t, cur_exm)){
+                if (model.canIAssignWithoutAnyConflict(t, cur_exm)){
                     int conflicts = model.howManyConflictAnExamHave(t, cur_exm);
                     if(conflicts <= 0 || canAddByTolerance(tolerance, conflicts) )
                     {
@@ -54,6 +53,7 @@ public class NopeFirstSolutionGenerator implements IFirstSolutionGenerator {
                         model.assignExams(t, cur_exm, true);
                         break;
                     } else {
+                        skippedExams.add(cur_exm);
                         continue;
                     }
                 }

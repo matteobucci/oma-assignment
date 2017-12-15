@@ -1,7 +1,6 @@
 package main.java.assignment.firstsolution;
 
 import main.java.assignment.model.ModelWrapper;
-import main.java.assignment.util.TimedSolutionGenerator;
 
 import java.util.Random;
 
@@ -18,7 +17,7 @@ public class SimpleFirstSolutionGenerator implements IFirstSolutionGenerator{
         model.clearExamsIfDone();
         for(int i=0; i<model.getExamsNumber(); i++){
             int actualTimeSlot = model.getTimeslotsNumber() -1;
-            while(!model.canIAssignExamHere(actualTimeSlot, i)){
+            while(!model.canIAssignWithoutAnyConflict(actualTimeSlot, i)){
                 actualTimeSlot--;
                 if(actualTimeSlot < 0){
                     //Non riesco a comporre una soluzione valida

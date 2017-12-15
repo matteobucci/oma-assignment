@@ -1,7 +1,6 @@
 package main.java.assignment.firstsolution;
 
 import main.java.assignment.model.ModelWrapper;
-import main.java.assignment.util.TimedSolutionGenerator;
 
 import java.util.*;
 
@@ -33,7 +32,7 @@ public class IterativeFirstSolutionGenerator implements IFirstSolutionGenerator{
             int chosenExam = random.nextInt(examLeft.size());
             int actualExam = examLeft.get(chosenExam);
             examLeft.remove(chosenExam);
-            while(!model.canIAssignExamHere(actualTimeSlot, actualExam)){
+            while(!model.canIAssignWithoutAnyConflict(actualTimeSlot, actualExam)){
 
                 actualTimeSlot = (actualTimeSlot+1)% model.getTimeslotsNumber();
 

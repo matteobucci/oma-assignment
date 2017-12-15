@@ -9,7 +9,7 @@ public abstract class IEuristic {
     protected IFirstSolutionGenerator firstSolutionGenerator;
     protected ISolutionGenerator solutionGenerator;
 
-    public IEuristic(IFirstSolutionGenerator firstSolutionGenerator, ISolutionGenerator solutionGenerator, ModelWrapper modelWrapper){
+    public IEuristic(IFirstSolutionGenerator firstSolutionGenerator, ISolutionGenerator solutionGenerator){
         this.firstSolutionGenerator = firstSolutionGenerator;
         this.solutionGenerator = solutionGenerator;
     }

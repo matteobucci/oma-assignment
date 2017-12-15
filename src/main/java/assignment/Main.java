@@ -166,7 +166,7 @@ public class Main extends Application {
         ModelPresenter presenter = new ModelPresenter(canvasViewer, model);
         ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);
 
-        IEuristic euristic = new IEuristic(new NopeFirstSolutionGenerator(model), new RandomSolutionGenerator(model), model) {
+        IEuristic euristic = new IEuristic(new NopeFirstSolutionGenerator(model), new RandomSolutionGenerator(model)) {
             @Override
             public void iterate() {
                 if(model.isDone()){
