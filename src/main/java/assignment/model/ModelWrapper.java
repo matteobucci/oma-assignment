@@ -104,6 +104,7 @@ public class ModelWrapper implements IModelWrapper {
             }
         }
         for(int i=0; i<getExamsNumber(); i++) examsToAssign.add(i);
+        conflictedExams.clear();
     }
 
     @Override

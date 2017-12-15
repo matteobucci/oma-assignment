@@ -164,12 +164,24 @@ public class Main extends Application {
         ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);
 
         IEuristic euristic = new IEuristic(new RandomFirstSolutionGenerator(model), new RandomSolutionGenerator(model)) {
+            double firstValue = 0;
+            int nTry = 0;
+
             @Override
             public void iterate() {
+
+
+
                 if(model.isAssignmentComplete()){
-                    solutionGenerator.iterate();
+                    if(firstValue < 75){
+                        solutionGenerator.iterate();
+                    }else{
+                        firstSolutionGenerator.generateFirstSolution();
+                        firstValue = model.getConflictNumber();
+                    }
                 }else{
                     firstSolutionGenerator.generateFirstSolution();
+                    firstValue = model.getConflictNumber();
                 }
             }
         };
