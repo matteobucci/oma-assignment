@@ -28,4 +28,20 @@ public class AssignmentModel {
         return enrolledStudents;
     }
 
+    public AssignmentModel clone() {
+        AssignmentModel model = new AssignmentModel(this.examMatrix.length, this.examMatrix[0].length);
+        for(int i=0; i<getExamMatrix().length; i++){
+            System.arraycopy(this.getExamMatrix()[i], 0, model.getExamMatrix()[i], 0, getExamMatrix()[0].length);
+        }
+        for(int i=0; i<getExamMatrix().length; i++){
+            System.arraycopy(this.getConflictMatrix()[i], 0, model.getConflictMatrix()[i], 0, getExamMatrix().length);
+        }
+
+        for(Integer key: getEnrolledStudents().keySet()){
+            model.getEnrolledStudents().put(key, this.getEnrolledStudents().get(key));
+        }
+
+        return model;
+    }
+
 }

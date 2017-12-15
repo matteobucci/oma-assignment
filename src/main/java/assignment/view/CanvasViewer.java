@@ -71,6 +71,7 @@ public class CanvasViewer implements ModelViewer, ModelStatsViewer{
 
     @Override
     public void printdScore(double score) {
+        gc.clearRect(0, canvas.getHeight()-80, canvas.getWidth(), canvas.getHeight());
         gc.fillText(String.valueOf("Score: " + score), canvas.getWidth()/2, canvas.getHeight() - 30);
     }
 }

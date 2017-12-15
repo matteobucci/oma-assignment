@@ -1,14 +1,16 @@
 package main.java.assignment.model;
 
 import javafx.util.Pair;
+import main.java.assignment.IDeltaScoreCalculator;
+import main.java.assignment.IScoreCalculator;
 
 import java.util.*;
 
 public class ModelWrapper {
 
     private boolean done = false;
-
-    private int numberOfConflict = 0;
+    private double scoreCache = 0;
+    private boolean isScoreValid = false;
 
     public interface ModelListener{
         void onModelChanged();
@@ -16,9 +18,14 @@ public class ModelWrapper {
 
     private List<ModelListener> listeners = new ArrayList<>();
     private AssignmentModel model;
+    private List<Pair<Integer, Integer>> conflicts = new ArrayList<>();
+    private IScoreCalculator calculator;
+    private IDeltaScoreCalculator deltaCalculator;
 
-    public ModelWrapper(int slotsNumber, int examsNumber){
+    public ModelWrapper(int slotsNumber, int examsNumber, IScoreCalculator calculator, IDeltaScoreCalculator deltaCalculator){
         model = new AssignmentModel(slotsNumber,examsNumber);
+        this.calculator = calculator;
+        this.deltaCalculator = deltaCalculator;
     }
 
     public AssignmentModel getAssignmentModel() {
@@ -57,6 +64,16 @@ public class ModelWrapper {
 
     public void assignExams(int timeSlot, int exam, boolean value){
         model.getExamMatrix()[timeSlot][exam] = value;
+        if(done){
+            callListeners();
+        }
+        isScoreValid = false;
+    }
+
+    private void callListeners() {
+        for(ModelListener listener: listeners){
+            listener.onModelChanged();
+        }
     }
 
     public int getStudentNumber(){
@@ -84,19 +101,17 @@ public class ModelWrapper {
     }
 
     public void clearExams() {
-        numberOfConflict = 0;
         for(int i=0; i<model.getExamMatrix().length; i++){
             for(int j=0; j<model.getExamMatrix()[i].length; j++){
                 model.getExamMatrix()[i][j] = false;
             }
         }
+        conflicts.clear();
     }
 
     public void setAsDone(){
         done = true;
-        for(ModelListener listener: listeners){
-            listener.onModelChanged();
-        }
+        callListeners();
     }
 
     public boolean canIAssignExamHere(int timeslot, int exam){
@@ -110,12 +125,21 @@ public class ModelWrapper {
 
     }
 
-    public void addConflict() {
-        numberOfConflict++;
+    public void addConflict(int timeSlot, int exam) {
+        conflicts.add(new Pair<>(timeSlot, exam));
     }
 
-    public double getNumberOfConflicts() {
-        return numberOfConflict;
+    public Pair<Integer, Integer> getConflict(){
+        if(conflicts.isEmpty()){
+            return null;
+        }else{
+            return conflicts.remove(0);
+        }
+    }
+
+
+    public int getNumberOfConflicts() {
+        return conflicts.size();
     }
 
     public int howManyConflictAnExamHave(int timeslot, int exam){
@@ -128,7 +152,18 @@ public class ModelWrapper {
             }
         }
         return result;
+    }
 
+    public double getActualScore(){
+        if(!isScoreValid){
+            scoreCache = calculator.getScore(model, getNumberOfConflicts());
+            isScoreValid = true;
+        }
+        return scoreCache;
+    }
+
+    public boolean isDone(){
+        return done;
     }
 
 }

@@ -4,8 +4,11 @@ import main.java.assignment.model.AssignmentModel;
 
 public class ScoreCalculator implements IScoreCalculator{
 
+    AssignmentModel bestUntilNow = null;
+    double bestPointUntilNow = Integer.MAX_VALUE;
+
     @Override
-    public double getScore(AssignmentModel model) {
+    public double getScore(AssignmentModel model, int conflicts) {
         boolean[][] examMatrix = model.getExamMatrix();
         int timeSlotNumber = examMatrix.length;
         int examNumber = examMatrix[0].length;
@@ -34,7 +37,17 @@ public class ScoreCalculator implements IScoreCalculator{
             }
         }
 
+        if(somma < bestPointUntilNow && conflicts == 0){
+            bestUntilNow = model.clone();
+            bestPointUntilNow = somma;
+            System.out.println("Trovato migliore fino ad ora: " + somma);
+        }
+
         return somma;
+    }
+
+    public AssignmentModel getBestUntilNow() {
+        return bestUntilNow;
     }
 
 
