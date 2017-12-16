@@ -13,11 +13,12 @@ public class RandomSolutionGenerator extends SolutionGeneration {
 
     LimitedQueue<Move> lastMoves;
     Random random = new Random();
+    private int noMoves = 0;
 
     public RandomSolutionGenerator(IModelWrapper model){
         super(model);
         this.model = model;
-        lastMoves = new LimitedQueue<>(model.getExamsNumber()*3);
+        lastMoves = new LimitedQueue<>(model.getExamsNumber()/2);
     }
 
     @Override
@@ -30,6 +31,7 @@ public class RandomSolutionGenerator extends SolutionGeneration {
        int bestValue = Integer.MAX_VALUE;
        int bestIndex = -1;
 
+
        for(int i=0; i<model.getTimeslotsNumber(); i++){
             int actualValue = model.estimateNumberOfConflictOfExam(i, exam);
             if(actualValue < bestValue && (i != timeSlot || random.nextInt(3) == 2)){
@@ -37,13 +39,20 @@ public class RandomSolutionGenerator extends SolutionGeneration {
                 bestValue = actualValue;
             }
        }
+        Move move = new Move(); move.exam = exam; move.from = timeSlot; move.to = bestIndex;
 
-       if(bestIndex != -1){
+       if(bestIndex != -1 && !lastMoves.contains(move)){
            model.assignExams(bestIndex, exam, true);
-           System.out.println("Assegnato");
+           lastMoves.add(move);
+           noMoves = 0;
        }else{
-           model.assignExams(random.nextInt(model.getTimeslotsNumber()), exam, true);
-           System.out.println("Assegnato a caso");
+           if(noMoves > model.getConflictNumber()){
+               model.assignExams(random.nextInt(model.getTimeslotsNumber()), exam, true);
+               noMoves = 0;
+           }else{
+               model.assignExams(timeSlot, exam, true);
+               noMoves++;
+           }
        }
 
 
@@ -53,6 +62,17 @@ public class RandomSolutionGenerator extends SolutionGeneration {
         int from;
         int to;
         int exam;
+
+        @Override
+        public boolean equals(Object o) {
+            if(o instanceof Move){
+                Move move = (Move) o;
+                return move.exam == this.exam && move.from == this.to && move.to == this.from;
+            }
+           return false;
+        }
+
+
     }
 
 

@@ -44,4 +44,52 @@ public class AssignmentModel {
         return model;
     }
 
+    //ORDINA VETTORE ESAMI IN CONFLITT0
+    public int[] orderConflictMatrix (){
+
+        int[] vectorConflictingExams = new int[this.getConflictMatrix().length] ;
+        int[] orderedVector = new int[this.conflictMatrix.length];
+
+        for (int i =0 ; i < conflictMatrix.length ; i++){
+            for (int j=0 ; j < conflictMatrix.length ; j++){
+                if (this.getConflictMatrix()[i][j] != 0)
+
+                    vectorConflictingExams[i]++;
+            }
+        }
+
+        //STAMPA DI DEBUG
+        // for (int i =0 ; i < examMatrix.length ; i++) {
+        //    System.out.print(vectorConflictingExams[i] + " ");
+        //}
+
+
+
+        //Ordino vettore
+        orderedVector = ordinaIndici(vectorConflictingExams);
+
+        return orderedVector;
+    }
+
+    public int[] ordinaIndici (int[] array){
+        int[] vettoreIndiciOrdinato = new int[array.length];
+        int max=0;
+        int i, j;
+        for (j = 0; j< array.length;j++){
+            for ( i = 0; i< array.length ; i++) {
+                if (array[i] >= array[max] && array[i] >=0)
+                    max = i;
+            }
+
+            vettoreIndiciOrdinato[j]=max;
+            array[max]=-1;
+            max = 0;
+
+
+        }
+
+        return vettoreIndiciOrdinato;
+    }
+
+
 }

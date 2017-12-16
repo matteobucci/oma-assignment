@@ -10,6 +10,7 @@ public class ModelWrapper implements IModelWrapper {
 
     private double scoreCache = 0;
     private boolean isScoreValid = false;
+    private boolean stampaSoloSoluzioniComplete = false;
 
     Random random = new Random();
 
@@ -93,7 +94,7 @@ public class ModelWrapper implements IModelWrapper {
 
         isScoreValid = false; //Il punteggio andrà ricalcolato
         processConflict(exam, timeSlot, value);
-        callListeners();
+        if(!stampaSoloSoluzioniComplete)callListeners();
     }
 
     @Override
@@ -162,6 +163,11 @@ public class ModelWrapper implements IModelWrapper {
         return getConflictedExamsOfTimeSlot(timeSlot).size();
     }
 
+    @Override
+    public int[] orderMatrix() {
+        return getAssignmentModel().orderConflictMatrix();
+    }
+
 
     private Set<Integer> getConflictedExamsOfTimeSlot(int timeslot){
         Set<Integer> result = new HashSet<>();
@@ -222,5 +228,11 @@ public class ModelWrapper implements IModelWrapper {
         }
     }
 
+    public void setStampaSoloSoluzioniComplete(boolean stampaSoloSoluzioniComplete) {
+        this.stampaSoloSoluzioniComplete = stampaSoloSoluzioniComplete;
+    }
 
+    public void stampa(){
+        callListeners();
+    }
 }

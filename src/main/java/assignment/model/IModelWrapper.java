@@ -42,6 +42,12 @@ public interface IModelWrapper {
 
     int getNumberOfConflictOfExam(int exam);
 
+    int[] orderMatrix();
+
+    public void setStampaSoloSoluzioniComplete(boolean stampaSoloSoluzioniComplete);
+
+    public void stampa();
+
     //Metodi da implementare sicuramente
     double getActualScore();
 

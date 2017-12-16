@@ -161,27 +161,33 @@ public class Main extends Application {
         primaryStage.show();
 
         ModelPresenter presenter = new ModelPresenter(canvasViewer, model);
-        ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);
+    //    ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);
 
-        IEuristic euristic = new IEuristic(new RandomFirstSolutionGenerator(model), new RandomSolutionGenerator(model)) {
-            double firstValue = 0;
-            int nTry = 0;
+        model.setStampaSoloSoluzioniComplete(true);
+
+        IEuristic euristic = new IEuristic(new AlbertoSolutionGenerator(model), new RandomSolutionGenerator(model)) {
+
+            int passi = 0;
 
             @Override
             public void iterate() {
-
-
-
                 if(model.isAssignmentComplete()){
-                    if(firstValue < 75){
-                        solutionGenerator.iterate();
-                    }else{
+                    if(model.isSolutionValid()){
+                        model.stampa();
+                        System.out.println("Punteggio raggiunto: " + model.getActualScore());
                         firstSolutionGenerator.generateFirstSolution();
-                        firstValue = model.getConflictNumber();
+                    }else{
+                        solutionGenerator.iterate();
+                        passi++;
+
+                        if(passi % 2000 == 0){
+                            firstSolutionGenerator.generateFirstSolution();
+                            passi = 0;
+                        }
                     }
                 }else{
+                    System.out.println("Soluzione non completa");
                     firstSolutionGenerator.generateFirstSolution();
-                    firstValue = model.getConflictNumber();
                 }
             }
         };
@@ -189,7 +195,7 @@ public class Main extends Application {
 
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             if(key.getCode()== KeyCode.ENTER) {
-                euristic.iterate();
+                //euristic.iterate();
             }
         });
 
@@ -206,7 +212,7 @@ public class Main extends Application {
 
         new Thread(() -> {
             while(running){
-             //   generateNewSolution(model);
+               euristic.iterate();
             }
         }).start();
 
