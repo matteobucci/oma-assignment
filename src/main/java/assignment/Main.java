@@ -164,7 +164,6 @@ public class Main extends Application {
     //    ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);
 
         model.setStampaSoloSoluzioniComplete(true);
-
         IEuristic euristic = new IEuristic(new AlbertoSolutionGenerator(model), new RandomSolutionGenerator(model)) {
 
             int passi = 0;
