@@ -1,8 +1,7 @@
 package main.java.assignment.model;
 
-import javafx.util.Pair;
-import main.java.assignment.IDeltaScoreCalculator;
-import main.java.assignment.IScoreCalculator;
+import main.java.assignment.scorecalculator.IDeltaScoreCalculator;
+import main.java.assignment.scorecalculator.IScoreCalculator;
 
 import java.util.*;
 
@@ -115,7 +114,7 @@ public class ModelWrapper implements IModelWrapper {
 
     @Override
     public boolean isSolutionValid() {
-        return conflictedExams.isEmpty();
+        return conflictedExams.isEmpty() && isAssignmentComplete();
     }
 
     @Override
@@ -220,6 +219,11 @@ public class ModelWrapper implements IModelWrapper {
             isScoreValid = true;
         }
         return scoreCache;
+    }
+
+    @Override
+    public double getScoreOfAMove(int exam, int from, int to) {
+        return deltaCalculator.getScore(this, exam, from, to);
     }
 
     private void callListeners() {

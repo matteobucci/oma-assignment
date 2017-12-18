@@ -7,11 +7,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import main.java.assignment.firstsolution.*;
+import main.java.assignment.euristic.IEuristic;
+import main.java.assignment.euristic.StandardEuristic;
 import main.java.assignment.model.AssignmentModel;
 import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.model.ModelWrapper;
-import main.java.assignment.solution.RandomSolutionGenerator;
+import main.java.assignment.scorecalculator.DeltaScoreCalculator;
+import main.java.assignment.scorecalculator.IDeltaScoreCalculator;
+import main.java.assignment.scorecalculator.IScoreCalculator;
+import main.java.assignment.scorecalculator.ScoreCalculator;
 import main.java.assignment.view.CanvasViewer;
 import org.apache.commons.cli.*;
 
@@ -22,37 +26,29 @@ import static java.lang.Thread.sleep;
 
 public class Main extends Application {
 
-    public static final int CANVAS_WIDTH = 800;
-    public static final int CANVAS_HEIGHT = 900;
-    private static final int SEC_RUNNING = 60 * 5;
+    private static final int CANVAS_WIDTH = 800;     //Larghezza finestra
+    private static final int CANVAS_HEIGHT = 900;    //Altezza finestra
+    private static final int SEC_RUNNING = 60 * 5;  //Tempo di esecuzione
 
-    static String prefix = null;
-    static String exmPath = null;
-    static String sloPath = null;
-    static String stuPath = null;
+    private static String prefix = null;
+    private static String exmPath = null;
+    private static String sloPath = null;
+    private static String stuPath = null;
 
-    static File exmFile = null;
-    static File sloFile = null;
-    static File stuFile = null;
+    private static File exmFile = null;
+    private static File sloFile = null;
+    private static File stuFile = null;
 
-    static boolean debug = false;
-    static boolean running = true;
+    private static boolean running = true;
 
     public static void main(String[] args) throws IOException {
 
-
-
+        //Lettura delle istanze da linea di comando
         Options options = new Options();
 
-        Option insOption = new Option("i", "ist", true, "istance files prefix");
+        Option insOption = new Option("i", "ist", true, "instance files prefix");
         insOption.setRequired(true);
         options.addOption(insOption);
-
-
-        Option debugOption = new Option("d", "debug", false, "debug mode");
-        debugOption.setRequired(false);
-        options.addOption(debugOption);
-
 
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
@@ -62,14 +58,7 @@ public class Main extends Application {
 
             cmd = parser.parse(options, args);
 
-            //Check debug mode
-            if (cmd.hasOption(debugOption.getOpt())) {
-                debug = true;
-                System.out.println("Debug mode enabled");
-            }
-
-
-            //Check output to file
+            //Mi costruisco i tre file che andrò a leggere
             if (cmd.hasOption(insOption.getOpt())) {
                 prefix = cmd.getOptionValue(insOption.getOpt());
                 stuPath = prefix + ".stu";
@@ -105,16 +94,16 @@ public class Main extends Application {
             return;
         }
 
+        //Faccio partire il programma
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
 
+        int timeSlotNumber = 0, examNumber;
 
-        int timeSlotNumber = 0;
-        int examNumber = 0;
-
+        //Lettura TIMESLOT
         Scanner scannerSlo = new Scanner(sloFile);
         while(scannerSlo.hasNextInt()){
             timeSlotNumber = scannerSlo.nextInt();
@@ -123,7 +112,7 @@ public class Main extends Application {
 
         System.out.println("Numero timeslot: " + timeSlotNumber);
 
-
+        //Lettura NUMERO ESAMI
         LineNumberReader reader  = new LineNumberReader(new FileReader(exmFile));
         while (reader.readLine() != null) {}
         examNumber = reader.getLineNumber();
@@ -131,74 +120,41 @@ public class Main extends Application {
 
         System.out.println("Numero esami: " + examNumber);
 
+        //Calcolatore di punteggio completo
         IScoreCalculator calculator = new ScoreCalculator();
-        IDeltaScoreCalculator deltaCalculator = new IDeltaScoreCalculator() {
-            @Override
-            public double getSwapCalculator(AssignmentModel model, int examIndex, int fromTimeSlot, int toTimeSlot) {
-                return 0;
-            }
-        };
+        //Calcolatore della differenza di punteggi con una mossa
+        IDeltaScoreCalculator deltaCalculator = new DeltaScoreCalculator(false); //Il flag fa stampare o meno i risultati del calculator
 
-
+        //Creo il modello
         IModelWrapper model = new ModelWrapper(timeSlotNumber, examNumber, calculator, deltaCalculator);
 
+        //Lettura ESAMI DI OGNI STUDENTE
         Scanner scannerStu = new Scanner(stuFile);
         while(scannerStu.hasNext()){
             int stuId = Integer.parseInt(scannerStu.next().substring(1));
             int exId = scannerStu.nextInt() -1;
             model.addEnrolledStudent(exId, stuId);
-            if(debug) System.out.println("Lo studente " + stuId + " è coinvolto nell'esame " + exId);
         }
         scannerStu.close();
 
-        //Setup stage
-        primaryStage.setTitle("OMA Asignment");
-        Group root = new Group();
+        //Avvio la finestra
         Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+        setupStage(primaryStage, canvas);
         CanvasViewer canvasViewer = new CanvasViewer(canvas);
-        root.getChildren().add(canvas);
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
 
-        ModelPresenter presenter = new ModelPresenter(canvasViewer, model);
-    //    ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);
+        //Visualizzazione a schermo dei risultati
+        ModelPresenter presenter = new ModelPresenter(canvasViewer, model);         //Griglia degli esami
+        ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);    //Testo con punteggi
 
+        //Non stampo il processo di generazione di una soluzione
         model.setStampaSoloSoluzioniComplete(true);
-        IEuristic euristic = new IEuristic(new AlbertoSolutionGenerator(model), new RandomSolutionGenerator(model)) {
 
-            int passi = 0;
-
-            @Override
-            public void iterate() {
-                if(model.isAssignmentComplete()){
-                    if(model.isSolutionValid()){
-                        model.stampa();
-                        System.out.println("Punteggio raggiunto: " + model.getActualScore());
-                        firstSolutionGenerator.generateFirstSolution();
-                    }else{
-                        solutionGenerator.iterate();
-                        passi++;
-
-                        if(passi % 2000 == 0){
-                            firstSolutionGenerator.generateFirstSolution();
-                            passi = 0;
-                        }
-                    }
-                }else{
-                    System.out.println("Soluzione non completa");
-                    firstSolutionGenerator.generateFirstSolution();
-                }
-            }
-        };
+        //Questa classe gestisce il comportamento delle azioni
+        IEuristic euristic = new StandardEuristic(model);
 
 
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            if(key.getCode()== KeyCode.ENTER) {
-                //euristic.iterate();
-            }
-        });
-
-
+        //Thread che porta al blocco della soluzione dopo il timeout
+        //TODO: INSERIRE LA LOGICA DI STAMPA DEI RISULTATI
         new Thread(() -> {
             try {
                 sleep(SEC_RUNNING * 1000);
@@ -208,13 +164,30 @@ public class Main extends Application {
             running = false;
         }).start();
 
+        //Esecuzione tramite invio dell'euristica
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if(key.getCode()== KeyCode.ENTER) {
+                euristic.iterate();
+            }
+        });
 
+        //Esecuzione automatica dell'euristica.
         new Thread(() -> {
-            while(running){
+            //Togliere !model.isSolutionValid() se si vuole eseguire indeterminatamente (fino al timeout)
+            while(running && !model.isSolutionValid()){
                euristic.iterate();
             }
+            model.stampa(); //Stampa la soluzione a schermo
         }).start();
 
+    }
+
+    private void setupStage(Stage primaryStage, Canvas canvas) {
+        primaryStage.setTitle("OMA Asignment");
+        Group root = new Group();
+        root.getChildren().add(canvas);
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 
 

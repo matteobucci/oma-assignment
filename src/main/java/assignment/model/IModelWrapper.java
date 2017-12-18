@@ -48,8 +48,9 @@ public interface IModelWrapper {
 
     public void stampa();
 
-    //Metodi da implementare sicuramente
     double getActualScore();
+
+    double getScoreOfAMove(int exam, int from, int to);
 
     public interface ModelListener{
         void onModelChanged();

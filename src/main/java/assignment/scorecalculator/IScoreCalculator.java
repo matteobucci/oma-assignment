@@ -1,4 +1,4 @@
-package main.java.assignment;
+package main.java.assignment.scorecalculator;
 
 import main.java.assignment.model.AssignmentModel;
 import main.java.assignment.model.ModelWrapper;
