@@ -48,6 +48,8 @@ public interface IModelWrapper {
 
     void print();
 
+    Set<Integer> getConflicts();
+
     double getActualScore();
 
     double getScoreOfAMove(int exam, int from, int to);

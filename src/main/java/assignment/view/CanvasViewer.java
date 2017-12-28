@@ -37,11 +37,11 @@ public class CanvasViewer implements ModelViewer, ModelStatsViewer{
         int widthTS =  (int) canvas.getWidth() / timeSlotNumber;
         int heigtEX =  (int) (canvas.getHeight() - 30) / examNumber;
 
-        for(int i =0; i<=timeSlotNumber; i++){
+        for(int i = 0; i<= timeSlotNumber; i++){
             gc.strokeLine(widthTS * (i), 0, widthTS * (i), heigtEX*examNumber);
         }
 
-        for(int i =0; i<=examNumber; i++){
+        for(int i = 0; i<=examNumber; i++){
             gc.strokeLine(0, heigtEX * (i), widthTS*timeSlotNumber, heigtEX * (i));
         }
 

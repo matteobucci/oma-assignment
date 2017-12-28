@@ -18,4 +18,14 @@ public class LimitedQueue<E> extends LinkedList<E> {
         }
         return added;
     }
+
+    public void newSize(int i) {
+        if(i < limit) {
+            for(i=limit; i<this.size(); i++){
+                this.remove(i);
+            }
+        }
+
+        limit = i;
+    }
 }

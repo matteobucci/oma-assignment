@@ -11,6 +11,9 @@ public class ModelWrapper implements IModelWrapper {
     private boolean isScoreValid = false;
     private boolean stampaSoloSoluzioniComplete = false;
 
+    long minDelayPrint = 100; //100ms
+    long lastPrint = 0; //L'ultima volta che ho stampato a schermo qualcosa
+
     Random random = new Random();
 
     private List<ModelListener> listeners = new ArrayList<>();
@@ -237,6 +240,15 @@ public class ModelWrapper implements IModelWrapper {
     }
 
     public void print(){
-        callListeners();
+        long actual = System.currentTimeMillis();
+        if(actual - lastPrint > minDelayPrint){
+            lastPrint = actual;
+            callListeners();
+        }
+    }
+
+    @Override
+    public Set<Integer> getConflicts() {
+        return conflictedExams;
     }
 }

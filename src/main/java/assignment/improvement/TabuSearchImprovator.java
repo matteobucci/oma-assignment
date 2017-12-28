@@ -11,14 +11,17 @@ public class TabuSearchImprovator implements ISolutionImprovator {
     /* Parametri della TABU SEARCH */
 
     //Dimensione lista
-    private static final int LIST_SIZE = 100;
+    private static final int LIST_SIZE = 1000;
     //Percentuale di miglioramento oltre la quale ignoro che una soluzione sia scartata
     private static final float PERC_IMPROV = 1f;
+
+    private boolean accettaTutto = false; //Se false accetta solo solo soluzioni migliori
 
     private IModelWrapper model;
 
 
     LimitedQueue<Move> queue = new LimitedQueue(LIST_SIZE);
+
 
     public TabuSearchImprovator(IModelWrapper model){
         this.model = model;
@@ -39,7 +42,6 @@ public class TabuSearchImprovator implements ISolutionImprovator {
         int ex = 0; //Esame corrente
         int exTimeSlot = 0; //Timeslot esame corrente
 
-
         /*
          --- GENERAZIONE VICINATO ---
          Considero come vicinato ogni mossa di timeslot per ogni esame del modello
@@ -54,19 +56,22 @@ public class TabuSearchImprovator implements ISolutionImprovator {
                     //Escludo tutte le mosse che mi generano conflitti
                     if(model.estimateNumberOfConflictOfExam(i, ex) == 0){
 
+
                         //MOSSA VALIDA! CALCOLO IL PUNTEGGIO
                         actualScore = model.getScoreOfAMove(ex, exTimeSlot, i);
 
+                        if(accettaTutto || startScore - actualScore > 0){
+                            Move move = new Move();
+                            move.exam = ex;
+                            move.from = exTimeSlot;
+                            move.to = i;
+                            move.deltaMove = startScore - actualScore;
 
+                            vicinato.add(move);
+                        }
 
-                        Move move = new Move();
-                        move.exam = ex;
-                        move.from = exTimeSlot;
-                        move.to = i;
-                        move.deltaMove = startScore - actualScore;
-
-                        vicinato.add(move);
                     }
+
                 }
 
             }//Ciclo sui timeslot
@@ -118,7 +123,7 @@ public class TabuSearchImprovator implements ISolutionImprovator {
         public boolean equals(Object o) {
             if(o instanceof Move){
                 Move move = (Move) o;
-            //    return move.exam == this.exam && move.from == this.to && move.to == this.from;
+                //return move.exam == this.exam && move.from == this.to && move.to == this.from;
                 return move.exam == this.exam &&  move.to == this.from;
             }
             return false;
