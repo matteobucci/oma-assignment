@@ -9,7 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.assignment.euristic.IEuristic;
 import main.java.assignment.euristic.StandardEuristic;
-import main.java.assignment.model.AssignmentModel;
 import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.model.ModelWrapper;
 import main.java.assignment.scorecalculator.DeltaScoreCalculator;
@@ -147,7 +146,7 @@ public class Main extends Application {
         ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);    //Testo con punteggi
 
         //Non stampo il processo di generazione di una soluzione
-        model.setStampaSoloSoluzioniComplete(true);
+        model.printOnlyCompleteSolutions(true);
 
         //Questa classe gestisce il comportamento delle azioni
         IEuristic euristic = new StandardEuristic(model);
@@ -174,10 +173,9 @@ public class Main extends Application {
         //Esecuzione automatica dell'euristica.
         new Thread(() -> {
             //Togliere !model.isSolutionValid() se si vuole eseguire indeterminatamente (fino al timeout)
-            while(running && !model.isSolutionValid()){
+            while(running){
                euristic.iterate();
             }
-            model.stampa(); //Stampa la soluzione a schermo
         }).start();
 
     }

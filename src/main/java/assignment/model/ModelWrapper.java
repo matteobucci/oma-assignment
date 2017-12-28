@@ -232,11 +232,11 @@ public class ModelWrapper implements IModelWrapper {
         }
     }
 
-    public void setStampaSoloSoluzioniComplete(boolean stampaSoloSoluzioniComplete) {
+    public void printOnlyCompleteSolutions(boolean stampaSoloSoluzioniComplete) {
         this.stampaSoloSoluzioniComplete = stampaSoloSoluzioniComplete;
     }
 
-    public void stampa(){
+    public void print(){
         callListeners();
     }
 }

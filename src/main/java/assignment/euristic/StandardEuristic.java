@@ -1,10 +1,9 @@
 package main.java.assignment.euristic;
 
-import main.java.assignment.scorecalculator.DeltaScoreCalculator;
-import main.java.assignment.scorecalculator.IDeltaScoreCalculator;
 import main.java.assignment.firstsolution.Alberto2SolutionGenerator;
-import main.java.assignment.improvement.SolutionImprovator;
-import main.java.assignment.model.AssignmentModel;
+import main.java.assignment.improvement.ISolutionImprovator;
+import main.java.assignment.improvement.SwapSolutionImprovator;
+import main.java.assignment.improvement.TabuSearchImprovator;
 import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.solution.RandomSolutionGenerator;
 
@@ -13,31 +12,61 @@ public class StandardEuristic extends IEuristic{
     public StandardEuristic(IModelWrapper model) {
         super(model);
         this.solutionGenerator = new RandomSolutionGenerator(model);
-        this.solutionImprovator = new SolutionImprovator(model);
+        tabu = new TabuSearchImprovator(model);
+        swap = new SwapSolutionImprovator(model);
+        this.solutionImprovator = tabu;
         this.firstSolutionGenerator = new Alberto2SolutionGenerator(model);
     }
 
-
     int passi = 0;
+    long minDelayPrint = 100; //100ms
+    long lastPrint = 0;
+
+    double lastPunteggio = 0;
+
+    ISolutionImprovator tabu;
+    ISolutionImprovator swap;
 
     @Override
     public void iterate() {
         if (model.isAssignmentComplete()) {
             if (model.isSolutionValid()) {
+                print();
                 solutionImprovator.iterate();
-                model.stampa();
+                passi++;
+
+
+                if(passi == 500){
+                    solutionImprovator = swap;
+                }
+                if(passi == 3000){
+                    solutionImprovator = tabu;
+                    passi = 0;
+                }
+
+
             } else {
                 solutionGenerator.iterate();
                 passi++;
 
-                if (passi % 2000 == 0) {
+                if (passi % model.getExamsNumber()*60    == 0) {
+                    System.out.println("Riprovo dall'inizio. Conflitti questa volta: " + model.getConflictNumber());
                     firstSolutionGenerator.generateFirstSolution();
+                    System.out.println("Conflitti di partenza: " + model.getConflictNumber());
                     passi = 0;
                 }
             }
         } else {
             System.out.println("Soluzione non completa");
             firstSolutionGenerator.generateFirstSolution();
+        }
+    }
+
+    private void print(){
+        long actual = System.currentTimeMillis();
+        if(actual - lastPrint > minDelayPrint){
+            lastPrint = actual;
+            model.print();
         }
     }
 }

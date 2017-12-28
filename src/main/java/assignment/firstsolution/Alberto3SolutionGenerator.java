@@ -6,11 +6,11 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class Alberto2SolutionGenerator implements IFirstSolutionGenerator {
+public class Alberto3SolutionGenerator implements IFirstSolutionGenerator {
 
     private final IModelWrapper model;
 
-    public Alberto2SolutionGenerator(IModelWrapper model){
+    public Alberto3SolutionGenerator(IModelWrapper model){
         this.model = model;
     }
 
@@ -32,7 +32,7 @@ public class Alberto2SolutionGenerator implements IFirstSolutionGenerator {
         int firstTimeSlot = random.nextInt(model.getTimeslotsNumber());
 
         for(int i=0; i<model.getExamsNumber(); i++){
-            int actualTimeSlot = firstTimeSlot;
+            int actualTimeSlot = random.nextInt(model.getTimeslotsNumber());
             attempt = 0;
             // while(model.estimateNumberOfConflictOfExam(actualTimeSlot, i) != 0){
             while(model.estimateNumberOfConflictOfExam(actualTimeSlot, vettoreEsamiOrdinati[i]) != 0){

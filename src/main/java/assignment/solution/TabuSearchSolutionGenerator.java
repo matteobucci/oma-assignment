@@ -1,11 +1,11 @@
 package main.java.assignment.solution;
 
-import main.java.assignment.util.LimitedQueue;
 import main.java.assignment.model.IModelWrapper;
+import main.java.assignment.util.LimitedQueue;
 
 import java.util.Random;
 
-public class RandomSolutionGenerator extends SolutionGeneration {
+public class TabuSearchSolutionGenerator extends SolutionGeneration {
 
     IModelWrapper model;
 
@@ -13,7 +13,7 @@ public class RandomSolutionGenerator extends SolutionGeneration {
     Random random = new Random();
     private int noMoves = 0;
 
-    public RandomSolutionGenerator(IModelWrapper model){
+    public TabuSearchSolutionGenerator(IModelWrapper model){
         super(model);
         this.model = model;
         lastMoves = new LimitedQueue<>(model.getExamsNumber()/2);

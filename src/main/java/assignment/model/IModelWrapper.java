@@ -44,15 +44,15 @@ public interface IModelWrapper {
 
     int[] orderMatrix();
 
-    public void setStampaSoloSoluzioniComplete(boolean stampaSoloSoluzioniComplete);
+    void printOnlyCompleteSolutions(boolean stampaSoloSoluzioniComplete);
 
-    public void stampa();
+    void print();
 
     double getActualScore();
 
     double getScoreOfAMove(int exam, int from, int to);
 
-    public interface ModelListener{
+    interface ModelListener{
         void onModelChanged();
     }
 }
