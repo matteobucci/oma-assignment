@@ -19,7 +19,10 @@ import main.java.assignment.scorecalculator.ScoreCalculator;
 import main.java.assignment.view.CanvasViewer;
 import org.apache.commons.cli.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
 import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
@@ -27,7 +30,7 @@ import static java.lang.Thread.sleep;
 public class Main extends Application {
 
     private static final int CANVAS_WIDTH = 800;     //Larghezza finestra
-    private static final int CANVAS_HEIGHT = 900;    //Altezza finestra
+    private static final int CANVAS_HEIGHT = 1040;    //Altezza finestra
     private static final int SEC_RUNNING = 60 * 5;  //Tempo di esecuzione
 
     private static String prefix = null;

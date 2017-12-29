@@ -79,10 +79,10 @@ public class TabuSearchImprovator implements ISolutionImprovator {
 
         //Controllo di avere un vicinato con mosse valide
         if(vicinato.isEmpty()){
-            System.out.println("Il vicinato non ha soluzioni valide o migliori");
+          //  System.out.println("Il vicinato non ha soluzioni valide o migliori");
             return;
         }else{
-            System.out.println("Vicinato con " + vicinato.size() + " elementi");
+          //  System.out.println("Vicinato con " + vicinato.size() + " elementi");
         }
 
 
@@ -136,7 +136,7 @@ public class TabuSearchImprovator implements ISolutionImprovator {
         public boolean equals(Object o) {
             if(o instanceof Move){
                 Move move = (Move) o;
-                return move.exam == this.exam && move.from == this.to && move.to == this.from;
+                return move.exam == this.exam && ((move.from == this.from && move.to == this.to)||(move.from == this.to && move.to == this.from));
                 //return move.exam == this.exam &&  move.to == this.from;
             }
             return false;

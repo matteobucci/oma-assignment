@@ -28,4 +28,8 @@ public class LimitedQueue<E> extends LinkedList<E> {
 
         limit = i;
     }
+
+    public int getLimit() {
+        return limit;
+    }
 }

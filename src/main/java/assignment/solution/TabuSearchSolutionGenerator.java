@@ -11,21 +11,23 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
     private IModelWrapper model;
 
     private int dimensioneLista = 200;                  //Dimensione della lista (può essere dinamica)
+    private int dimensioneListaEsami = 100;             //Dimensione lista esami
     private static final int MIGLIORAMENTO_OTTIMO = 3;  //Valore di conflitti in meno verso il quale assegno direttamente la mossa
 
     private LimitedQueue<Move> listaUltimeMosse = new LimitedQueue<>(dimensioneLista);
-    private LimitedQueue<Integer> ultimiEsamiMossi = new LimitedQueue<>(10);
+    private LimitedQueue<Integer> ultimiEsamiMossi;
     private Random random = new Random();
 
     //Cerco di muovere solo esami in conflitto con altri
     //Nel caso le mosse non siano più disponibili però (vicinato piccolo o mosse finite
     //Setto questa variabile a true e muovo un esame senza conflitti (possibilimente in un altro posto senza conflitti)
     //Per cercare di variare la situazione
-    private boolean muoviEsamiBuoni;
+    private boolean muoviEsamiBuoni = false;
 
     public TabuSearchSolutionGenerator(IModelWrapper model){
         super(model);
         this.model = model;
+        ultimiEsamiMossi = new LimitedQueue<>(model.getExamsNumber()/10); //DEVE ESSERE DINAMICA A SECONDA DEI CONFLITTI RIMASTI
     }
 
     @Override
@@ -66,9 +68,19 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
      */
     private void aggiustaDimensioneLista(List<Move> vicinato) {
         if(vicinato.size()/20 < dimensioneLista){
+            System.out.println("VICINATO: " + (vicinato.size()/20));
+            System.out.println("LISTA: " + dimensioneLista);
             listaUltimeMosse.newSize(vicinato.size()/20);
             dimensioneLista = vicinato.size()/20;
+            System.out.println("Aggiornata lista");
         }
+
+        if(model.getConflicts().size()/3 < dimensioneListaEsami){
+            ultimiEsamiMossi.newSize(model.getConflicts().size()/3);
+            dimensioneListaEsami = model.getConflicts().size()/3;
+            System.out.println("Aggiornata lista esami");
+        }
+
     }
 
     /*
@@ -104,7 +116,7 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
     private void popolaVicinatoAll(List<Move> vicinato){
         int actualTimeSlot;
         int actualConflicts;
-        for (int ex = 0; ex < model.getTimeslotsNumber(); ex++) {
+        for (int ex = 0; ex < model.getExamsNumber(); ex++) {
             actualTimeSlot = model.getExamTimeslot(ex);
             actualConflicts = model.getNumberOfConflictOfExam(ex);
 
