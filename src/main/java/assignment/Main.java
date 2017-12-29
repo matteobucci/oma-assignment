@@ -146,15 +146,27 @@ public class Main extends Application {
         ModelPresenter presenter = new ModelPresenter(canvasViewer, model);         //Griglia degli esami
         ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);    //Testo con punteggi
 
-        //Non stampo il processo di generazione di una soluzione
-        model.printOnlyCompleteSolutions(false);
+        /*
+        #############################################################################################################
+                                            PARTE MODIFICABILE
+        #############################################################################################################
+        */
+
+        //Disattivare se si vuole provare man mano nuove soluzioni premento invio
+        boolean threadActive = true;
 
         //Questa classe gestisce il comportamento delle azioni
-        IEuristic euristic = new FirstSolutionsEuristic(model);
+        //IEuristic euristic = new FirstSolutionsEuristic(model); //Questa euristica genera un sacco di soluzioni e stampa informazioni utili su di queste
+        IEuristic euristic = new StandardEuristic(model); //Questa è l'euristica finale che occorre consegnare
+
+
+        /*
+        #############################################################################################################
+        #############################################################################################################
+        */
 
 
         //Thread che porta al blocco della soluzione dopo il timeout
-        //TODO: INSERIRE LA LOGICA DI STAMPA DEI RISULTATI
         new Thread(() -> {
             try {
                 sleep(SEC_RUNNING * 1000);
@@ -167,15 +179,18 @@ public class Main extends Application {
         //Esecuzione tramite invio dell'euristica
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             if(key.getCode()== KeyCode.ENTER) {
-                euristic.iterate();
+                if(threadActive){
+                    model.print();
+                }else{
+                    euristic.iterate();
+                }
             }
         });
 
         //Esecuzione automatica dell'euristica.
         new Thread(() -> {
-            //Togliere !model.isSolutionValid() se si vuole eseguire indeterminatamente (fino al timeout)
-            while(running){
-         //      euristic.iterate();
+            while(running && threadActive){
+               euristic.iterate();
             }
         }).start();
 

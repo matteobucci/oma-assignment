@@ -1,21 +1,24 @@
 package main.java.assignment.euristic;
 
 import main.java.assignment.firstsolution.Alberto2SolutionGenerator;
+import main.java.assignment.firstsolution.RandomFirstSolutionGenerator;
 import main.java.assignment.improvement.ISolutionImprovator;
 import main.java.assignment.improvement.SwapSolutionImprovator;
 import main.java.assignment.improvement.TabuSearchImprovator;
 import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.solution.RandomSolutionGenerator;
+import main.java.assignment.solution.TabuSearchSolutionGenerator;
 
 public class StandardEuristic extends IEuristic{
 
     public StandardEuristic(IModelWrapper model) {
         super(model);
-        this.solutionGenerator = new RandomSolutionGenerator(model);
+        this.solutionGenerator = new TabuSearchSolutionGenerator(model);
         tabu = new TabuSearchImprovator(model);
         swap = new SwapSolutionImprovator(model);
         this.solutionImprovator = tabu;
-        this.firstSolutionGenerator = new Alberto2SolutionGenerator(model);
+        this.firstSolutionGenerator = new RandomFirstSolutionGenerator(model);
+        model.printOnlyCompleteSolutions(true);
     }
 
     int passi = 0;
@@ -49,7 +52,7 @@ public class StandardEuristic extends IEuristic{
                 solutionGenerator.iterate();
                 passi++;
 
-                if (passi % model.getExamsNumber()*60    == 0) {
+                if (passi % model.getExamsNumber()* 500   == 0) {
                     System.out.println("Riprovo dall'inizio. Conflitti questa volta: " + model.getConflictNumber());
                     firstSolutionGenerator.generateFirstSolution();
                     System.out.println("Conflitti di partenza: " + model.getConflictNumber());

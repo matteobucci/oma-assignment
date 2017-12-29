@@ -18,15 +18,19 @@ public class FirstSolutionsEuristic extends IEuristic{
     private long startTime = System.currentTimeMillis();
     private long lastSolutionTime = System.currentTimeMillis();
     private int solutionsGenerated = 0;
+    private int passiRichiesti = 0;
+    private int passiTotali = 0;
+    private double punteggioTotale = 0;
+    private double punteggioMassimo = Double.MIN_VALUE;
+    private double punteggioMinimo = Double.MAX_VALUE;
+
 
     public FirstSolutionsEuristic(IModelWrapper model) {
         super(model);
         this.solutionGenerator = new TabuSearchSolutionGenerator(model);
         this.firstSolutionGenerator = new RandomFirstSolutionGenerator(model);
-        model.printOnlyCompleteSolutions(false);
+        model.printOnlyCompleteSolutions(true);
     }
-
-    int passi = 0;
 
     @Override
     public void iterate() {
@@ -41,15 +45,33 @@ public class FirstSolutionsEuristic extends IEuristic{
             System.out.println("Soluzione non completa");
             firstSolutionGenerator.generateFirstSolution();
         }
+
+        passiRichiesti++;
+        passiTotali++;
     }
 
     private void showCompletementDetails() {
+        double punteggio = model.getActualScore();
         solutionsGenerated++;
+        punteggioTotale += punteggio;
         System.out.println("Soluzione generata! (numero " + solutionsGenerated + ")");
         long timeUsed =  (System.currentTimeMillis() - lastSolutionTime);
         lastSolutionTime = System.currentTimeMillis();
         System.out.println("Tempo di risoluzione = " + timeUsed);
+        System.out.println("Passi Richiesti = " + passiRichiesti);
+        System.out.println("Punteggio soluzione = " + punteggio);
+        passiRichiesti = 0;
+        if(punteggio > punteggioMassimo){
+            punteggioMassimo = punteggio;
+            System.out.println("NUOVO PUNTEGGIO MASSIMO = " + punteggio);
+        }
+        if (punteggio < punteggioMinimo){
+            punteggioMinimo = punteggio;
+            System.out.println("NUOVO PUNTEGGIO MINIMO = " + punteggio);
+        }
+        System.out.println("Passi medi richiesti = " + (passiTotali / solutionsGenerated));
         System.out.println("Media di risoluzione = " + (((System.currentTimeMillis() - startTime)/solutionsGenerated)));
+        System.out.println("Punteggio medio soluzione = " + (punteggioTotale/solutionsGenerated));
         model.print();
     }
 
