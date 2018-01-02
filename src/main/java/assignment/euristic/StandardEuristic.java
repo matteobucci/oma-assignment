@@ -12,9 +12,8 @@ public class StandardEuristic extends IEuristic{
     public StandardEuristic(IModelWrapper model) {
         super(model);
         this.solutionGenerator = new TabuSearchSolutionGenerator(model);
-        tabu = new TabuSearchImprovator(model);
         swap = new SwapSolutionImprovator(model);
-        this.solutionImprovator = tabu;
+        tabu = new TabuSearchImprovator(model);
         this.firstSolutionGenerator = new RandomFirstSolutionGenerator(model);
         model.printOnlyCompleteSolutions(true);
     }
@@ -25,21 +24,27 @@ public class StandardEuristic extends IEuristic{
 
     double lastPunteggio = 0;
 
-    ISolutionImprovator tabu;
     ISolutionImprovator swap;
+    ISolutionImprovator tabu;
 
     @Override
     public void iterate() {
         if (model.isAssignmentComplete()) {
             if (model.isSolutionValid()) {
                 print();
-                solutionImprovator.iterate();
+
+                if(passi % 10  == 0){
+                    swap.iterate();
+                }else{
+                    tabu.iterate();
+                    System.out.println("TABUx");
+                }
 
             } else {
                 solutionGenerator.iterate();
                 passi++;
 
-                if (passi % model.getExamsNumber()* 1000   == 0) {
+                if (passi % (model.getExamsNumber()* 20)   == 0) {
                     System.out.println("Riprovo dall'inizio. Conflitti questa volta: " + model.getConflictNumber());
                     firstSolutionGenerator.generateFirstSolution();
                     System.out.println("Conflitti di partenza: " + model.getConflictNumber());

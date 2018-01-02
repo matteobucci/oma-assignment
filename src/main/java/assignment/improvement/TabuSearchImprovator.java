@@ -22,8 +22,8 @@ public class TabuSearchImprovator implements ISolutionImprovator {
 
 
     private LimitedQueue<Move> queue = new LimitedQueue<>(LIST_SIZE);
-    private LimitedQueue<Integer> lastExams = new LimitedQueue<>(40);
-
+    private LimitedQueue<Integer> lastExams = new LimitedQueue<>(10);
+    private Random random = new Random();
 
 
     public TabuSearchImprovator(IModelWrapper model){
@@ -50,7 +50,6 @@ public class TabuSearchImprovator implements ISolutionImprovator {
          Considero come vicinato ogni mossa di timeslot per ogni esame del modello
         */
         for(ex = 0; ex < model.getExamsNumber(); ex++){ //Considero ogni esame
-            if(lastExams.contains(ex)) continue;
             exTimeSlot = model.getExamTimeslot(ex);
 
             for(int i=0; i<model.getTimeslotsNumber(); i++){ //Considero ogni timeslot
@@ -77,16 +76,6 @@ public class TabuSearchImprovator implements ISolutionImprovator {
             }//Ciclo sui timeslot
         }//Ciclo sugli esami
 
-        //Controllo di avere un vicinato con mosse valide
-        if(vicinato.isEmpty()){
-          //  System.out.println("Il vicinato non ha soluzioni valide o migliori");
-            return;
-        }else{
-          //  System.out.println("Vicinato con " + vicinato.size() + " elementi");
-        }
-
-
-
         /*
          --- CONTROLLO VICINATO ---
         */
@@ -106,6 +95,19 @@ public class TabuSearchImprovator implements ISolutionImprovator {
              //   System.out.println("Mossa non accettata");
             }
         }
+
+        int divisiore = 1;
+        if (vicinato.size() > 1000) {
+            divisiore = 100;
+        } else if (vicinato.size() > 100) {
+            divisiore = 10;
+        }
+
+        int selectedIndex = random.nextInt(vicinato.size() / divisiore);
+        Move selectedMove = vicinato.get(selectedIndex);
+        moveExam(selectedMove);
+
+
 
         System.out.println("Nessuna mossa papabile");
 
