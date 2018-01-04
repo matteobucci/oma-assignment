@@ -24,6 +24,8 @@ public interface IModelWrapper {
 
     void assignExams(int timeSlot, int exam, boolean value);
 
+    void moveExam(int exam, int timeSlotStart, int timeSlotEnd);
+
     void clearExamsMatrix();
 
     boolean isAssignmentComplete();

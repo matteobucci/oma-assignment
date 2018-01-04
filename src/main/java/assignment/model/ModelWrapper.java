@@ -96,7 +96,17 @@ public class ModelWrapper implements IModelWrapper {
 
         isScoreValid = false; //Il punteggio andrà ricalcolato
         processConflict(exam, timeSlot, value);
-        if(!stampaSoloSoluzioniComplete)callListeners();
+        if(!stampaSoloSoluzioniComplete)print();
+    }
+
+    @Override
+    public void moveExam(int exam, int timeSlotStart, int timeSlotEnd) {
+        model.getExamMatrix()[timeSlotStart][exam] = false;
+        model.getExamMatrix()[timeSlotEnd][exam] = false;
+        processConflict(exam, timeSlotStart, false);
+        processConflict(exam, timeSlotEnd, true);
+        isScoreValid = false;
+        if(!stampaSoloSoluzioniComplete)print();
     }
 
     @Override
@@ -162,6 +172,9 @@ public class ModelWrapper implements IModelWrapper {
     @Override
     public int getNumberOfConflictOfExam(int exam) {
         int timeSlot = getExamTimeslot(exam);
+        if(timeSlot == -1){
+            System.out.println("ERRORE");
+        }
         return getConflictedExamsOfTimeSlot(timeSlot).size();
     }
 

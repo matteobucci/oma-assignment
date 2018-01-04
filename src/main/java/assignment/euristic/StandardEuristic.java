@@ -1,10 +1,13 @@
 package main.java.assignment.euristic;
 
+import main.java.assignment.firstsolution.Alberto2SolutionGenerator;
+import main.java.assignment.firstsolution.Alberto3SolutionGenerator;
 import main.java.assignment.firstsolution.RandomFirstSolutionGenerator;
 import main.java.assignment.improvement.ISolutionImprovator;
 import main.java.assignment.improvement.SwapSolutionImprovator;
 import main.java.assignment.improvement.TabuSearchImprovator;
 import main.java.assignment.model.IModelWrapper;
+import main.java.assignment.solution.RandomSolutionGenerator;
 import main.java.assignment.solution.TabuSearchSolutionGenerator;
 
 public class StandardEuristic extends IEuristic{
@@ -14,8 +17,8 @@ public class StandardEuristic extends IEuristic{
         this.solutionGenerator = new TabuSearchSolutionGenerator(model);
         swap = new SwapSolutionImprovator(model);
         tabu = new TabuSearchImprovator(model);
-        this.firstSolutionGenerator = new RandomFirstSolutionGenerator(model);
-        model.printOnlyCompleteSolutions(true);
+        this.firstSolutionGenerator = new Alberto2SolutionGenerator(model);
+        model.printOnlyCompleteSolutions(false);
     }
 
     int passi = 0;

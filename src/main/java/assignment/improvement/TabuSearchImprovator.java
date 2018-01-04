@@ -114,8 +114,9 @@ public class TabuSearchImprovator implements ISolutionImprovator {
     }
 
     private void moveExam(Move selectedMove){
-        model.assignExams(selectedMove.from, selectedMove.exam, false);
-        model.assignExams(selectedMove.to, selectedMove.exam, true);
+        model.moveExam(selectedMove.exam, selectedMove.from, selectedMove.to);
+        //   model.assignExams(selectedMove.from, selectedMove.exam, false);
+        //   model.assignExams(selectedMove.to, selectedMove.exam, true);
         queue.add(selectedMove);
         lastExams.add(selectedMove.exam);
     }
