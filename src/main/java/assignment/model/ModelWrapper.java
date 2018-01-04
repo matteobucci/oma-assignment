@@ -217,8 +217,13 @@ public class ModelWrapper implements IModelWrapper {
 
     @Override
     public double getActualScore() {
+
         if(!isScoreValid){
-            scoreCache = calculator.getScore(model, 0); //TODO: INSERIRE IL NUMERO DI CONFLITTI ATTUALI
+            if(isSolutionValid()){
+                scoreCache = calculator.getScore(model, 0); //TODO: INSERIRE IL NUMERO DI CONFLITTI ATTUALI
+            }else{
+                scoreCache = Integer.MAX_VALUE;
+            }
             isScoreValid = true;
         }
         return scoreCache;

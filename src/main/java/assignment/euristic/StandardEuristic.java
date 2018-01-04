@@ -37,7 +37,6 @@ public class StandardEuristic extends IEuristic{
                     swap.iterate();
                 }else{
                     tabu.iterate();
-                    System.out.println("TABUx");
                 }
 
             } else {
