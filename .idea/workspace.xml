@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/improvement/TabuSearchImprovator.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/improvement/TabuSearchImprovator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/model/IModelWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/model/IModelWrapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/Main.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/solution/TabuSearchSolutionGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/solution/TabuSearchSolutionGenerator.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -74,33 +71,20 @@
       <file leaf-file-name="TabuSearchImprovator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/improvement/TabuSearchImprovator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
+            <state relative-caret-position="0">
               <caret line="118" column="73" lean-forward="false" selection-start-line="118" selection-start-column="73" selection-end-line="118" selection-end-column="73" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="195" column="0" lean-forward="false" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
+            <state relative-caret-position="522">
+              <caret line="67" column="13" lean-forward="true" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DeltaScoreCalculator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/assignment/scorecalculator/DeltaScoreCalculator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="10" column="33" lean-forward="true" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
-              <folding>
-                <element signature="e#259#260#0" expanded="true" />
-                <element signature="e#286#287#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,8 +103,8 @@
       <file leaf-file-name="TabuSearchSolutionGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/solution/TabuSearchSolutionGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+            <state relative-caret-position="1710">
+              <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -129,18 +113,18 @@
       <file leaf-file-name="StandardEuristic.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state relative-caret-position="72">
+              <caret line="12" column="48" lean-forward="false" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModelWrapper.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ModelWrapper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="216" column="28" lean-forward="false" selection-start-line="216" selection-start-column="28" selection-end-line="216" selection-end-column="28" />
+            <state relative-caret-position="211">
+              <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -149,7 +133,7 @@
       <file leaf-file-name="Alberto2SolutionGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/firstsolution/Alberto2SolutionGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
+            <state relative-caret-position="687">
               <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding />
             </state>
@@ -190,7 +174,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>vettoreEsamiOr</find>
       <find>Assegnato</find>
       <find>isSol</find>
       <find>isAssi</find>
@@ -220,6 +203,7 @@
       <find>move</find>
       <find>processCo</find>
       <find>conflictedExams.add(</find>
+      <find>type</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -282,16 +266,16 @@
         <option value="$PROJECT_DIR$/src/main/java/assignment/firstsolution/Alberto3SolutionGenerator.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/util/LimitedQueue.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/euristic/FirstSolutionsEuristic.java" />
-        <option value="$PROJECT_DIR$/src/main/java/assignment/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/improvement/SwapSolutionImprovator.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/scorecalculator/ScoreCalculator.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/scorecalculator/IScoreCalculator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/view/CanvasViewer.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/model/IModelWrapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/solution/TabuSearchSolutionGenerator.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/improvement/TabuSearchImprovator.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java" />
+        <option value="$PROJECT_DIR$/src/main/java/assignment/Main.java" />
       </list>
     </option>
   </component>
@@ -327,6 +311,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -400,10 +388,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -465,7 +449,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="main.java.assignment.Main" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-i $PROJECT_DIR$/instance06" />
+      <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/instance06 -t 300" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -595,7 +579,7 @@
     <option name="totallyTimeSpent" value="1302000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="198" y="27" width="1920" height="1074" extended-state="6" />
+    <frame x="-1" y="27" width="1920" height="1074" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -606,51 +590,31 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32883817" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.406639" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19190872" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20677084" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987553" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2852697" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2852697" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32883817" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2852697" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32883817" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19190872" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20677084" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987553" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -704,20 +668,8 @@
           <properties />
           <option name="timeStamp" value="102" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java</url>
-          <line>204</line>
-          <properties />
-          <option name="timeStamp" value="103" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java</url>
-          <line>209</line>
-          <properties />
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="106" />
+      <option name="time" value="107" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -731,8 +683,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/main.fxml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/IEuristicFunction.java" />
     <entry file="file://$PROJECT_DIR$/oma-assignment.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -944,7 +894,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -952,7 +901,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -960,7 +908,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -992,14 +939,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="82" column="43" lean-forward="false" selection-start-line="82" selection-start-column="43" selection-end-line="82" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/assignment/scorecalculator/DeltaScoreCalculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="10" column="33" lean-forward="true" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
+        <state relative-caret-position="144">
+          <caret line="10" column="33" lean-forward="false" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
           <folding>
             <element signature="e#259#260#0" expanded="true" />
             <element signature="e#286#287#0" expanded="true" />
@@ -1035,7 +981,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/assignment/improvement/TabuSearchImprovator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
+        <state relative-caret-position="0">
           <caret line="118" column="73" lean-forward="false" selection-start-line="118" selection-start-column="73" selection-end-line="118" selection-end-column="73" />
           <folding />
         </state>
@@ -1051,43 +997,62 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/assignment/solution/TabuSearchSolutionGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="195" column="0" lean-forward="false" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/firstsolution/Alberto2SolutionGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        <state relative-caret-position="1710">
+          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        <state relative-caret-position="72">
+          <caret line="12" column="48" lean-forward="false" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/commons-cli-1.4.jar!/org/apache/commons/cli/CommandLine.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="52" column="18" lean-forward="false" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/commons-cli-1.4.jar!/org/apache/commons/cli/Option.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="28" column="17" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="17" />
+          <folding>
+            <element signature="e#2446#2447#0" expanded="true" />
+            <element signature="e#2478#2479#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/firstsolution/Alberto2SolutionGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="687">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="216" column="28" lean-forward="false" selection-start-line="216" selection-start-column="28" selection-end-line="216" selection-end-column="28" />
+        <state relative-caret-position="211">
+          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="67" column="13" lean-forward="true" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

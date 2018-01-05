@@ -102,8 +102,8 @@ public class ModelWrapper implements IModelWrapper {
     @Override
     public void moveExam(int exam, int timeSlotStart, int timeSlotEnd) {
         model.getExamMatrix()[timeSlotStart][exam] = false;
-        model.getExamMatrix()[timeSlotEnd][exam] = false;
         processConflict(exam, timeSlotStart, false);
+        model.getExamMatrix()[timeSlotEnd][exam] = true;
         processConflict(exam, timeSlotEnd, true);
         isScoreValid = false;
         if(!stampaSoloSoluzioniComplete)print();

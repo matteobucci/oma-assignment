@@ -31,7 +31,7 @@ public class Main extends Application {
 
     private static final int CANVAS_WIDTH = 800;     //Larghezza finestra
     private static final int CANVAS_HEIGHT = 1040;    //Altezza finestra
-    private static final int SEC_RUNNING = 60 * 5;  //Tempo di esecuzione
+    private static int SEC_RUNNING = 60 * 5;  //Tempo di esecuzione
 
     private static String prefix = null;
     private static String exmPath = null;
@@ -49,9 +49,11 @@ public class Main extends Application {
         //Lettura delle istanze da linea di comando
         Options options = new Options();
 
-        Option insOption = new Option("i", "ist", true, "instance files prefix");
-        insOption.setRequired(true);
-        options.addOption(insOption);
+
+        Option timeOption = new Option("t", "time", true, "duration time of the solver (seconds)");
+        timeOption.setType(Integer.class);
+        timeOption.setRequired(true);
+        options.addOption(timeOption);
 
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
@@ -61,9 +63,21 @@ public class Main extends Application {
 
             cmd = parser.parse(options, args);
 
+            for(String string: cmd.getArgList()){
+                System.out.println("Parametro: " + string);
+            }
+
+            if(cmd.getArgList().isEmpty()){
+                System.err.println("Occorre inserire come parametro il prefisso dell'istanza da utilizzare");
+                System.exit(1);
+                return;
+            }
+
             //Mi costruisco i tre file che andrò a leggere
-            if (cmd.hasOption(insOption.getOpt())) {
-                prefix = cmd.getOptionValue(insOption.getOpt());
+            if (cmd.hasOption(timeOption.getOpt())) {
+                SEC_RUNNING = Integer.parseInt(cmd.getOptionValue(timeOption.getOpt()));
+
+                prefix = cmd.getArgList().get(0);
                 stuPath = prefix + ".stu";
                 exmPath = prefix + ".exm";
                 sloPath = prefix + ".slo";
