@@ -12,7 +12,7 @@ public class TabuSearchImprovator implements ISolutionImprovator {
     /* Parametri della TABU SEARCH */
 
     //Dimensione lista
-    private static final int LIST_SIZE = 200;
+    private static final int LIST_SIZE = 150;
     //Percentuale di miglioramento oltre la quale ignoro che una soluzione sia scartata
     private static final float PERC_IMPROV = 1f;
 
@@ -24,6 +24,7 @@ public class TabuSearchImprovator implements ISolutionImprovator {
     private LimitedQueue<Move> queue = new LimitedQueue<>(LIST_SIZE);
     private LimitedQueue<Integer> lastExams = new LimitedQueue<>(10);
     private Random random = new Random();
+    private int fallimenti = 0;
 
 
     public TabuSearchImprovator(IModelWrapper model){
@@ -107,9 +108,14 @@ public class TabuSearchImprovator implements ISolutionImprovator {
         Move selectedMove = vicinato.get(selectedIndex);
         moveExam(selectedMove);
 
+        fallimenti++;
 
+        if(fallimenti > 10){
+            fallimenti = 0;
+            model.shift();
+            System.out.println("Fatto uno shift");
+        }
 
-        System.out.println("Nessuna mossa papabile");
 
     }
 

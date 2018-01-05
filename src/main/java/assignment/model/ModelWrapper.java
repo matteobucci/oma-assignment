@@ -30,6 +30,30 @@ public class ModelWrapper implements IModelWrapper {
         clearExamsMatrix();
     }
 
+    public ModelWrapper(AssignmentModel assignmentModel, IScoreCalculator calculator, IDeltaScoreCalculator deltaCalculator){
+        System.out.println("Generazione ModelWrapper a partire da soluzione esistente");
+        model = assignmentModel;
+
+        this.calculator = calculator;
+        this.deltaCalculator = deltaCalculator;
+
+        for(int i = 0; i < model.getExamMatrix().length; i++){
+            for(int j = 0; j < model.getExamMatrix()[i].length; j++){
+                // i -> Timeslot
+                // j -> Esame
+                if(model.getExamMatrix()[i][j]){
+                    processConflict(j, i, true);
+                }
+            }
+        }
+
+        System.out.println("Generazione completa. Esami in conflitto presenti: " + getConflicts().size());
+        scoreCache = calculator.getScore(model, getConflicts().size());
+        isScoreValid = true;
+        System.out.println("Punteggio soluzione = " + scoreCache);
+
+    }
+
     @Override
     public AssignmentModel getAssignmentModel() {
         return model;
@@ -181,6 +205,41 @@ public class ModelWrapper implements IModelWrapper {
     @Override
     public int[] orderMatrix() {
         return getAssignmentModel().orderConflictMatrix();
+    }
+
+    @Override
+    public void shift() {
+        conflictedExams.clear();
+        isScoreValid = false;
+
+        boolean[] last = new boolean[getExamsNumber()];
+        //Prima colonna
+        for(int i=0; i<getExamsNumber(); i++){
+            last[i] = model.getExamMatrix()[getTimeslotsNumber()-1][i];
+        }
+
+        //
+        for(int i=getTimeslotsNumber()-1; i>0; i--){
+            for(int j=0; j<getExamsNumber(); j++){
+                model.getExamMatrix()[i][j] = model.getExamMatrix()[i-1][j];
+            }
+        }
+
+        for(int j=0; j<getExamsNumber(); j++){
+            model.getExamMatrix()[0][j] = last[j];
+        }
+
+        for(int i = 0; i < model.getExamMatrix().length; i++){
+            for(int j = 0; j < model.getExamMatrix()[i].length; j++){
+                // i -> Timeslot
+                // j -> Esame
+                if(model.getExamMatrix()[i][j]){
+                    processConflict(j, i, true);
+                }
+            }
+        }
+
+        print();
     }
 
 

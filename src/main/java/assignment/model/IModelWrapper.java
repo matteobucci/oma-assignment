@@ -46,6 +46,8 @@ public interface IModelWrapper {
 
     int[] orderMatrix();
 
+    void shift();
+
     void printOnlyCompleteSolutions(boolean stampaSoloSoluzioniComplete);
 
     void print();

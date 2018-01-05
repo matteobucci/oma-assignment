@@ -68,19 +68,14 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
      */
     private void aggiustaDimensioneLista(List<Move> vicinato) {
         if(vicinato.size()/10 < dimensioneLista){
-            System.out.println("VICINATO: " + (vicinato.size()/10));
-            System.out.println("LISTA: " + dimensioneLista);
             listaUltimeMosse.newSize(vicinato.size()/10);
             dimensioneLista = vicinato.size()/10;
-            System.out.println("Aggiornata lista");
         }
 
-        if(model.getConflicts().size()/5 < dimensioneListaEsami){
-            ultimiEsamiMossi.newSize(model.getConflicts().size()/5);
-            dimensioneListaEsami = model.getConflicts().size()/5;
-            System.out.println("Aggiornata lista esami");
+        if(model.getConflicts().size()/3 < dimensioneListaEsami){
+            ultimiEsamiMossi.newSize(model.getConflicts().size()/3);
+            dimensioneListaEsami = model.getConflicts().size()/3;
         }
-
     }
 
     /*
@@ -167,7 +162,10 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
             divisiore = 100;
         } else if (vicinato.size() > 100) {
             divisiore = 10;
+        }else if(vicinato.size() == 0){
+            return;
         }
+
 
         int selectedIndex = random.nextInt(vicinato.size() / divisiore);
         Move selectedMove = vicinato.get(selectedIndex);

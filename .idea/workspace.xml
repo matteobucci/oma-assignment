@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/assignment/PassiManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/Main.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/improvement/TabuSearchImprovator.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/improvement/TabuSearchImprovator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/model/AssignmentModel.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/model/AssignmentModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/model/IModelWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/model/IModelWrapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/assignment/solution/TabuSearchSolutionGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/assignment/solution/TabuSearchSolutionGenerator.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,8 +77,21 @@
       <file leaf-file-name="TabuSearchImprovator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/improvement/TabuSearchImprovator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="118" column="73" lean-forward="false" selection-start-line="118" selection-start-column="73" selection-end-line="118" selection-end-column="73" />
+            <state relative-caret-position="414">
+              <caret line="64" column="49" lean-forward="false" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
+              <folding>
+                <element signature="e#996#997#0" expanded="true" />
+                <element signature="e#1030#1031#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IModelWrapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/assignment/model/IModelWrapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="719">
+              <caret line="58" column="11" lean-forward="false" selection-start-line="58" selection-start-column="11" selection-end-line="58" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -81,8 +100,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="67" column="13" lean-forward="true" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
+            <state relative-caret-position="1053">
+              <caret line="221" column="5" lean-forward="true" selection-start-line="221" selection-start-column="5" selection-end-line="221" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -90,21 +109,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ScorePresenter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/assignment/ScorePresenter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="TabuSearchSolutionGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/solution/TabuSearchSolutionGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1710">
-              <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+            <state relative-caret-position="702">
+              <caret line="54" column="30" lean-forward="false" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -113,9 +122,22 @@
       <file leaf-file-name="StandardEuristic.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="12" column="48" lean-forward="false" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
+            <state relative-caret-position="-117">
+              <caret line="94" column="91" lean-forward="false" selection-start-line="94" selection-start-column="91" selection-end-line="94" selection-end-column="91" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Alberto3SolutionGenerator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/assignment/firstsolution/Alberto3SolutionGenerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-120">
+              <caret line="12" column="11" lean-forward="false" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
+              <folding>
+                <element signature="e#343#344#0" expanded="true" />
+                <element signature="e#377#378#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -123,30 +145,29 @@
       <file leaf-file-name="ModelWrapper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+            <state relative-caret-position="386">
+              <caret line="304" column="33" lean-forward="false" selection-start-line="304" selection-start-column="18" selection-end-line="304" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Alberto2SolutionGenerator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/assignment/firstsolution/Alberto2SolutionGenerator.java">
+      <file leaf-file-name="PassiManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/assignment/PassiManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="687">
-              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ModelPresenter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/assignment/ModelPresenter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="-279">
+              <caret line="55" column="5" lean-forward="false" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
               <folding>
-                <element signature="e#603#604#0" expanded="true" />
+                <element signature="e#291#292#0" expanded="true" />
+                <element signature="e#314#315#0" expanded="true" />
+                <element signature="e#551#552#0" expanded="true" />
+                <element signature="e#594#595#0" expanded="true" />
+                <element signature="e#633#634#0" expanded="true" />
+                <element signature="e#669#670#0" expanded="true" />
+                <element signature="e#2795#2796#0" expanded="true" />
+                <element signature="e#2836#2837#0" expanded="true" />
+                <element signature="e#2885#2886#0" expanded="true" />
+                <element signature="e#2933#2934#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -155,9 +176,22 @@
       <file leaf-file-name="ScoreCalculator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/assignment/scorecalculator/ScoreCalculator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="47" lean-forward="false" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
+            <state relative-caret-position="460">
+              <caret line="50" column="26" lean-forward="false" selection-start-line="50" selection-start-column="11" selection-end-line="50" selection-end-column="26" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AssignmentModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/assignment/model/AssignmentModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="530">
+              <caret line="36" column="113" lean-forward="false" selection-start-line="36" selection-start-column="113" selection-end-line="36" selection-end-column="113" />
+              <folding>
+                <element signature="e#525#526#0" expanded="true" />
+                <element signature="e#558#559#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -174,15 +208,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Assegnato</find>
-      <find>isSol</find>
-      <find>isAssi</find>
-      <find>Alberto2</find>
-      <find>Puntegg</find>
-      <find>Euris</find>
-      <find>U</find>
-      <find>Non pos</find>
-      <find>Ci rin</find>
       <find>a</find>
       <find>getSco</find>
       <find>alb</find>
@@ -204,6 +229,15 @@
       <find>processCo</find>
       <find>conflictedExams.add(</find>
       <find>type</find>
+      <find>clone</find>
+      <find>process</find>
+      <find>ultimiEsamiMossi</find>
+      <find>Nessuna mo</find>
+      <find>model</find>
+      <find>AssignmentModel</find>
+      <find>new Score</find>
+      <find>eseguiMossa</find>
+      <find>getScoreOfAMove</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -225,7 +259,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/assignment/util/SolutionGeneration.java" />
         <option value="$PROJECT_DIR$/instance01.exm" />
         <option value="$PROJECT_DIR$/instance01.stu" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/ModelPresenter.java" />
@@ -251,7 +284,6 @@
         <option value="$PROJECT_DIR$/src/main/java/assignment/view/TextViewer.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/LimitedQueue.java" />
         <option value="/usr/lib/jvm/java-8-openjdk/jre/lib/ext/jfxrt.jar!/javafx/event/Event.class" />
-        <option value="$PROJECT_DIR$/src/main/java/assignment/model/AssignmentModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/firstsolution/AlbertoSolutionGenerator.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/solution/ISolutionImprovator.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/improvement/ISolutionImprovator.java" />
@@ -270,12 +302,14 @@
         <option value="$PROJECT_DIR$/src/main/java/assignment/scorecalculator/ScoreCalculator.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/scorecalculator/IScoreCalculator.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/view/CanvasViewer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/assignment/model/IModelWrapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/assignment/PassiManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/assignment/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/assignment/model/AssignmentModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/solution/TabuSearchSolutionGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/assignment/model/IModelWrapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/improvement/TabuSearchImprovator.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java" />
-        <option value="$PROJECT_DIR$/src/main/java/assignment/Main.java" />
       </list>
     </option>
   </component>
@@ -339,46 +373,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="assignment" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="oma-assignment" type="b2602c69:ProjectViewProjectNode" />
-              <item name="oma-assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="euristic" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="oma-assignment" type="b2602c69:ProjectViewProjectNode" />
-              <item name="oma-assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="improvement" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="oma-assignment" type="b2602c69:ProjectViewProjectNode" />
-              <item name="oma-assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="scorecalculator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="oma-assignment" type="b2602c69:ProjectViewProjectNode" />
-              <item name="oma-assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="solution" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="oma-assignment" type="b2602c69:ProjectViewProjectNode" />
-              <item name="oma-assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="oma-assignment" type="b2602c69:ProjectViewProjectNode" />
@@ -449,7 +443,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="main.java.assignment.Main" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/instance06 -t 300" />
+      <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/instance07 -t 300" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -579,7 +573,7 @@
     <option name="totallyTimeSpent" value="1302000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="27" width="1920" height="1074" extended-state="6" />
+    <frame x="0" y="6" width="1920" height="1074" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -591,11 +585,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32883817" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19190872" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44709542" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20677084" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987553" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -614,7 +609,6 @@
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987553" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -661,15 +655,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java</url>
-          <line>175</line>
-          <properties />
-          <option name="timeStamp" value="102" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="107" />
+      <option name="time" value="118" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -683,13 +669,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/oma-assignment.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="14" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/assignment/view/ModelStatsViewer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -807,13 +786,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/firstsolution/Alberto3SolutionGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/assignment/solution/SolutionGeneration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -927,14 +899,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/model/AssignmentModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="79" column="59" lean-forward="true" selection-start-line="79" selection-start-column="59" selection-end-line="79" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/assignment/view/CanvasViewer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -947,25 +911,9 @@
         <state relative-caret-position="144">
           <caret line="10" column="33" lean-forward="false" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
           <folding>
-            <element signature="e#259#260#0" expanded="true" />
-            <element signature="e#286#287#0" expanded="true" />
+            <element signature="e#259#260#0" expanded="false" />
+            <element signature="e#286#287#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/ScorePresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/scorecalculator/ScoreCalculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="47" lean-forward="false" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -974,40 +922,8 @@
         <state relative-caret-position="414">
           <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
-            <element signature="e#603#604#0" expanded="true" />
+            <element signature="e#603#604#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/improvement/TabuSearchImprovator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="118" column="73" lean-forward="false" selection-start-line="118" selection-start-column="73" selection-end-line="118" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/model/IModelWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="52" column="17" lean-forward="false" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/solution/TabuSearchSolutionGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1710">
-          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="12" column="48" lean-forward="false" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1038,18 +954,110 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/ScorePresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/model/AssignmentModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="530">
+          <caret line="36" column="113" lean-forward="false" selection-start-line="36" selection-start-column="113" selection-end-line="36" selection-end-column="113" />
+          <folding>
+            <element signature="e#525#526#0" expanded="true" />
+            <element signature="e#558#559#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/firstsolution/Alberto3SolutionGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-120">
+          <caret line="12" column="11" lean-forward="false" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
+          <folding>
+            <element signature="e#343#344#0" expanded="true" />
+            <element signature="e#377#378#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/scorecalculator/ScoreCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="50" column="26" lean-forward="false" selection-start-line="50" selection-start-column="11" selection-end-line="50" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/solution/TabuSearchSolutionGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="54" column="30" lean-forward="false" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/improvement/TabuSearchImprovator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="64" column="49" lean-forward="false" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
+          <folding>
+            <element signature="e#996#997#0" expanded="true" />
+            <element signature="e#1030#1031#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/model/IModelWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="719">
+          <caret line="58" column="11" lean-forward="false" selection-start-line="58" selection-start-column="11" selection-end-line="58" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/assignment/model/ModelWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+        <state relative-caret-position="386">
+          <caret line="304" column="33" lean-forward="false" selection-start-line="304" selection-start-column="18" selection-end-line="304" selection-end-column="33" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/euristic/StandardEuristic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-117">
+          <caret line="94" column="91" lean-forward="false" selection-start-line="94" selection-start-column="91" selection-end-line="94" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/assignment/PassiManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-279">
+          <caret line="55" column="5" lean-forward="false" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+          <folding>
+            <element signature="e#291#292#0" expanded="true" />
+            <element signature="e#314#315#0" expanded="true" />
+            <element signature="e#551#552#0" expanded="true" />
+            <element signature="e#594#595#0" expanded="true" />
+            <element signature="e#633#634#0" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#2795#2796#0" expanded="true" />
+            <element signature="e#2836#2837#0" expanded="true" />
+            <element signature="e#2885#2886#0" expanded="true" />
+            <element signature="e#2933#2934#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/assignment/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="67" column="13" lean-forward="true" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
+        <state relative-caret-position="1053">
+          <caret line="221" column="5" lean-forward="true" selection-start-line="221" selection-start-column="5" selection-end-line="221" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

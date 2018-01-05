@@ -33,8 +33,8 @@ public class AssignmentModel {
         for(int i=0; i<getExamMatrix().length; i++){
             System.arraycopy(this.getExamMatrix()[i], 0, model.getExamMatrix()[i], 0, getExamMatrix()[0].length);
         }
-        for(int i=0; i<getExamMatrix().length; i++){
-            System.arraycopy(this.getConflictMatrix()[i], 0, model.getConflictMatrix()[i], 0, getExamMatrix().length);
+        for(int i=0; i<getConflictMatrix().length; i++){
+            System.arraycopy(this.getConflictMatrix()[i], 0, model.getConflictMatrix()[i], 0, getConflictMatrix().length);
         }
 
         for(Integer key: getEnrolledStudents().keySet()){
