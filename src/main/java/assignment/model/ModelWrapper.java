@@ -60,6 +60,27 @@ public class ModelWrapper implements IModelWrapper {
     }
 
     @Override
+    public void changeModel(AssignmentModel model) {
+        conflictedExams.clear();
+        this.model = model;
+
+        for(int i = 0; i < model.getExamMatrix().length; i++){
+            for(int j = 0; j < model.getExamMatrix()[i].length; j++){
+                // i -> Timeslot
+                // j -> Esame
+                if(model.getExamMatrix()[i][j]){
+                    processConflict(j, i, true);
+                }
+            }
+        }
+
+    //    System.out.println("Model sostituito. Esami in conflitto presenti: " + getConflicts().size());
+        scoreCache = calculator.getScore(model, getConflicts().size());
+        isScoreValid = true;
+     //   System.out.println("Punteggio soluzione = " + scoreCache);
+    }
+
+    @Override
     public void setListener(ModelListener listener){
         listeners.add(listener);
     }

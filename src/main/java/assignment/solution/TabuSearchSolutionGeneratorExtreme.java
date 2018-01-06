@@ -6,7 +6,7 @@ import main.java.assignment.util.LimitedQueue;
 
 import java.util.*;
 
-public class TabuSearchSolutionGenerator extends SolutionGeneration {
+public class TabuSearchSolutionGeneratorExtreme extends SolutionGeneration {
 
 
     private IModelWrapper model;
@@ -28,7 +28,7 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
     //Per cercare di variare la situazione
     private int muoviEsamiBuoni = 0;
 
-    public TabuSearchSolutionGenerator(IModelWrapper model){
+    public TabuSearchSolutionGeneratorExtreme(IModelWrapper model){
         super(model);
         this.model = model;
         ultimiEsamiMossi = new LimitedQueue<>(model.getExamsNumber()/10); //DEVE ESSERE DINAMICA A SECONDA DEI CONFLITTI RIMASTI
@@ -43,14 +43,19 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
             System.out.println("Miglior numero conflitti: " + bestConflitti);
         }
 
-        if((bestConflitti*2) < model.getConflictNumber() || (bestConflitti+10) < model.getConflictNumber()){
+        if( (bestConflitti <= 5 && (bestConflitti + 5) < model.getConflictNumber())
+            || bestConflitti > 5 && (bestConflitti + 10) < model.getConflictNumber()) {
+            //  (bestConflitti*2) < model.getConflictNumber() || (bestConflitti+10) < model.getConflictNumber())
             //Es. Avevo raggiunto 2 conflitti ora ne ho 11
             //Es. Avevo raggiunto 5 conflitti ora ne ho 100
 
             model.changeModel(bestModel);
             bestModel = bestModel.clone();
-            model.shift();
+          //  model.shift();
         }
+
+
+
 
         //Lista che ospita il vicinato
         List<Move> vicinato = new ArrayList<>();
@@ -81,7 +86,18 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
         eseguiMossaComunque(vicinato);
 
         //La prossima iterazione comunque muovo anche esami non in conflitto
-        muoviEsamiBuoni = 10;
+        muoviEsamiBuoni = 2;
+
+         /*
+        Sta cosa mi fa risolvere un sacco di cose (istanza 03 05 04 02) la 06 ancora fa schifo
+         */
+        if(model.getConflictNumber() <= 3){
+            //Devo fare qualcosa per togliere questi due benedetti conflitti
+            int examToMove = model.getRandomConflictedExam();
+            int timeSlot = model.getExamTimeslot(examToMove);
+            int selectedIndex = random.nextInt(model.getTimeslotsNumber());
+            model.moveExam(examToMove, timeSlot,selectedIndex);
+        }
 
     }
 
@@ -99,7 +115,6 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
             listaUltimeMosse.newSize(vicinato.size()/5);
             dimensioneLista = vicinato.size()/5;
         }
-
 
 
         if(model.getConflicts().size()/3 < dimensioneListaEsami){
@@ -143,6 +158,7 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
         int actualTimeSlot;
         int actualConflicts;
         for (int ex = 0; ex < model.getExamsNumber(); ex++) {
+            if(model.getConflicts().contains(ex)) continue; //Potrebbe funzionare
             actualTimeSlot = model.getExamTimeslot(ex);
             actualConflicts = model.getNumberOfConflictOfExam(ex);
 
@@ -179,8 +195,6 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
     assegno comunque una mossa tra le migliori
      */
     private void eseguiMossaComunque(List<Move> vicinato){
-
-
         int divisiore = 1;
         if (vicinato.size() > 1000) {
             divisiore = 100;
@@ -189,6 +203,7 @@ public class TabuSearchSolutionGenerator extends SolutionGeneration {
         }else if(vicinato.size() == 0){
             return;
         }
+
 
         int selectedIndex = random.nextInt(vicinato.size() / divisiore);
         Move selectedMove = vicinato.get(selectedIndex);

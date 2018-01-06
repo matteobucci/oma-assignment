@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.assignment.euristic.FirstSolutionsEuristic;
 import main.java.assignment.euristic.IEuristic;
+import main.java.assignment.euristic.IterationEuristic;
 import main.java.assignment.euristic.StandardEuristic;
 import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.model.ModelWrapper;
@@ -173,9 +174,9 @@ public class Main extends Application {
         boolean threadActive = true;
 
         //Questa classe gestisce il comportamento delle azioni
-        //IEuristic euristic = new FirstSolutionsEuristic(model); //Questa euristica genera un sacco di soluzioni e stampa informazioni utili su di queste
-        IEuristic euristic = new StandardEuristic(model, SEC_RUNNING); //Questa è l'euristica finale che occorre consegnare
-
+        IEuristic euristic = new FirstSolutionsEuristic(model); //Questa euristica genera un sacco di soluzioni e stampa informazioni utili su di queste
+        //IEuristic euristic = new StandardEuristic(model, SEC_RUNNING); //Questa è l'euristica finale che occorre consegnare
+        //IEuristic euristic = new IterationEuristic(model, SEC_RUNNING);
 
         /*
         #############################################################################################################

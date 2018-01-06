@@ -10,6 +10,8 @@ public interface IModelWrapper {
 
     AssignmentModel getAssignmentModel();
 
+    void changeModel(AssignmentModel model);
+
     void addEnrolledStudent(int examId, int studentId);
 
     int getTimeslotsNumber();

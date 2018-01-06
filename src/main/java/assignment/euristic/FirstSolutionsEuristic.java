@@ -8,6 +8,7 @@ import main.java.assignment.improvement.TabuSearchImprovator;
 import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.solution.RandomSolutionGenerator;
 import main.java.assignment.solution.TabuSearchSolutionGenerator;
+import main.java.assignment.solution.TabuSearchSolutionGeneratorExtreme;
 import org.omg.CORBA.INTERNAL;
 
 /*
@@ -30,8 +31,8 @@ public class FirstSolutionsEuristic extends IEuristic{
 
     public FirstSolutionsEuristic(IModelWrapper model) {
         super(model);
-        this.solutionGenerator = new TabuSearchSolutionGenerator(model);
-        this.firstSolutionGenerator = new RandomFirstSolutionGenerator(model);
+        this.solutionGenerator = new TabuSearchSolutionGeneratorExtreme(model);
+        this.firstSolutionGenerator = new Alberto2SolutionGenerator(model);
         model.printOnlyCompleteSolutions(true);
     }
 
@@ -41,6 +42,7 @@ public class FirstSolutionsEuristic extends IEuristic{
             if (model.isSolutionValid()) { //YEAH. Non ho conflitti
                 showCompletementDetails(); //Stampo e aggiorno i dettagli sulle risoluzioni
                 firstSolutionGenerator.generateFirstSolution(); //Ricomincio con una nuova
+                solutionGenerator = new TabuSearchSolutionGeneratorExtreme(model);
             } else {
                 solutionGenerator.iterate(); //Miglioro lo standard attuale
             }
