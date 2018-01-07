@@ -63,6 +63,8 @@ public interface IModelWrapper {
 
     void randomSwapTimeSlot();
 
+    void randomSwapTimeSlot(int i);
+
     IScoreCalculator getCalculator();
 
     interface ModelListener{

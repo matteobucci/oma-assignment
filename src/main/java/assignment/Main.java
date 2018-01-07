@@ -173,7 +173,8 @@ public class Main extends Application {
         //Questa classe gestisce il comportamento delle azioni
         //IEuristic euristic = new FirstSolutionsEuristic(model); //Questa euristica genera un sacco di soluzioni e stampa informazioni utili su di queste
         //IEuristic euristic = new StandardEuristic(model, SEC_RUNNING); //Questa è l'euristica finale che occorre consegnare
-        IEuristic euristic = new IterationEuristic(model, SEC_RUNNING);
+        //IEuristic euristic = new IterationEuristic(model, SEC_RUNNING);
+        IEuristic euristic = new FinalEuristicMichiaUnAltra(model, SEC_RUNNING);
 
         /*
         #############################################################################################################

@@ -12,10 +12,13 @@ public class SwapTimeSlotImprovator implements ISolutionImprovator {
         this.model = model;
     }
 
+    int i = 0;
 
     @Override
     public void iterate() {
-        model.randomSwapTimeSlot();
+        model.randomSwapTimeSlot(
+                (i++)%model.getTimeslotsNumber()
+        );
     }
 
 

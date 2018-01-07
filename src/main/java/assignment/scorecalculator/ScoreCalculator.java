@@ -30,7 +30,7 @@ public class ScoreCalculator implements IScoreCalculator{
                                     somma += model.getConflictMatrix()[e][e2] * Math.pow(2, 5-i) / model.getEnrolledStudents().size();
                                 }
                             }catch (Exception ex){
-                                System.out.println("Devug");
+                                System.out.println("Debug");
                             }
 
                         }
@@ -42,7 +42,7 @@ public class ScoreCalculator implements IScoreCalculator{
         if(somma < bestPointUntilNow && conflicts == 0){
             bestUntilNow = model.clone();
             bestPointUntilNow = somma;
-         //   System.out.println("Trovato migliore fino ad ora: " + somma);
+            System.out.println("Trovato migliore fino ad ora: " + somma);
         }
 
         return somma + (conflicts * CONFLICT_WEIGTH);

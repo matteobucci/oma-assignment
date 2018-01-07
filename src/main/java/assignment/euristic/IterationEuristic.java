@@ -82,6 +82,10 @@ public class IterationEuristic extends IEuristic{
                     System.out.println("Trovata soluzione migliore: " + model.getActualScore());
                 }
 
+
+
+                /*
+
                 if((solutionImprovator instanceof TabuSearchImprovatorExtreme) && passi > 0 && passi % 10 == 0 && algoritmoCambiato){
                     //10, 20, 30, ...
                     if(lastMigliore == migliore){
@@ -112,7 +116,7 @@ public class IterationEuristic extends IEuristic{
 
 
 
-
+*/
 
 
             }else{

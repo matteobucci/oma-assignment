@@ -34,6 +34,8 @@ public class FirstSolutionsEuristic extends IEuristic{
         this.solutionGenerator = new TabuSearchSolutionGeneratorExtreme(model);
         this.firstSolutionGenerator = new Alberto2SolutionGenerator(model);
         model.printOnlyCompleteSolutions(true);
+
+
     }
 
     @Override

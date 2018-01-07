@@ -329,14 +329,18 @@ public class ModelWrapper implements IModelWrapper {
 
     @Override
     public void randomSwapTimeSlot() {
+        randomSwapTimeSlot(random.nextInt(getTimeslotsNumber()));
+    }
+
+    @Override
+    public void randomSwapTimeSlot(int ts) {
         boolean temp;
 
-        int randomTimeSlot = random.nextInt(getTimeslotsNumber());
         int randomDestination = random.nextInt(getTimeslotsNumber());
 
         for(int i=0; i<getExamsNumber(); i++){
-            temp = model.getExamMatrix()[randomTimeSlot][i];
-            model.getExamMatrix()[randomTimeSlot][i] = model.getExamMatrix()[randomDestination][i];
+            temp = model.getExamMatrix()[ts][i];
+            model.getExamMatrix()[ts][i] = model.getExamMatrix()[randomDestination][i];
             model.getExamMatrix()[randomDestination][i] = temp;
         }
 
