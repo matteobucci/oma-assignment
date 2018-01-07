@@ -17,10 +17,7 @@ import main.java.assignment.scorecalculator.ScoreCalculator;
 import main.java.assignment.view.CanvasViewer;
 import org.apache.commons.cli.*;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.LineNumberReader;
+import java.io.*;
 import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
@@ -207,6 +204,19 @@ public class Main extends Application {
         new Thread(() -> {
             while(running && threadActive){
                euristic.iterate();
+               if(!running){
+                   try(BufferedWriter writer = new BufferedWriter(new FileWriter(new File(prefix+".sol")))){
+                       model.changeModel(model.getCalculator().getBestUntilNow());
+                       for(int i=0; i<model.getExamsNumber(); i++){
+                           writer.write(i+1 + " " + model.getExamTimeslot(i) + "\n");
+                       }
+                       System.out.println("Terminata la scrittura del modello");
+                       System.out.println("La soluzione ha un punteggio di " + model.getActualScore());
+                       System.exit(0);
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+               }
             }
         }).start();
 
