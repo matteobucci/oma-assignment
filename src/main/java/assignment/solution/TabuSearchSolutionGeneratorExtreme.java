@@ -91,7 +91,7 @@ public class TabuSearchSolutionGeneratorExtreme extends SolutionGeneration {
          /*
         Sta cosa mi fa risolvere un sacco di cose (istanza 03 05 04 02) la 06 ancora fa schifo
          */
-        if(model.getConflictNumber() <= 3){
+        if(model.getConflictNumber() <= 3 && model.getConflictNumber() > 0){
             //Devo fare qualcosa per togliere questi due benedetti conflitti
             int examToMove = model.getRandomConflictedExam();
             int timeSlot = model.getExamTimeslot(examToMove);

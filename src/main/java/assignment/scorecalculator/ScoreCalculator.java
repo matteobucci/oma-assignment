@@ -42,7 +42,7 @@ public class ScoreCalculator implements IScoreCalculator{
         if(somma < bestPointUntilNow && conflicts == 0){
             bestUntilNow = model.clone();
             bestPointUntilNow = somma;
-            System.out.println("Trovato migliore fino ad ora: " + somma);
+         //   System.out.println("Trovato migliore fino ad ora: " + somma);
         }
 
         return somma + (conflicts * CONFLICT_WEIGTH);

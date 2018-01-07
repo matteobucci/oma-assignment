@@ -14,7 +14,7 @@ public class ModelWrapper implements IModelWrapper {
     long minDelayPrint = 100; //100ms
     long lastPrint = 0; //L'ultima volta che ho stampato a schermo qualcosa
 
-    Random random = new Random();
+    Random random = new Random(System.currentTimeMillis());
 
     private List<ModelListener> listeners = new ArrayList<>();
     private AssignmentModel model;
@@ -325,6 +325,27 @@ public class ModelWrapper implements IModelWrapper {
     @Override
     public double getScoreOfAMove(int exam, int from, int to) {
         return deltaCalculator.getScore(this, exam, from, to);
+    }
+
+    @Override
+    public void randomSwapTimeSlot() {
+        boolean temp;
+
+        int randomTimeSlot = random.nextInt(getTimeslotsNumber());
+        int randomDestination = random.nextInt(getTimeslotsNumber());
+
+        for(int i=0; i<getExamsNumber(); i++){
+            temp = model.getExamMatrix()[randomTimeSlot][i];
+            model.getExamMatrix()[randomTimeSlot][i] = model.getExamMatrix()[randomDestination][i];
+            model.getExamMatrix()[randomDestination][i] = temp;
+        }
+
+        isScoreValid = false;
+    }
+
+    @Override
+    public IScoreCalculator getCalculator() {
+        return calculator;
     }
 
     private void callListeners() {

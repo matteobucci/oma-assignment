@@ -1,6 +1,7 @@
 package main.java.assignment.model;
 
 import javafx.util.Pair;
+import main.java.assignment.scorecalculator.IScoreCalculator;
 
 import java.util.Set;
 
@@ -59,6 +60,10 @@ public interface IModelWrapper {
     double getActualScore();
 
     double getScoreOfAMove(int exam, int from, int to);
+
+    void randomSwapTimeSlot();
+
+    IScoreCalculator getCalculator();
 
     interface ModelListener{
         void onModelChanged();
