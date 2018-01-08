@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import main.java.assignment.euristic.*;
 import main.java.assignment.model.CachedModelWrapper;
 import main.java.assignment.model.IModelWrapper;
+import main.java.assignment.model.ModelWrapper;
 import main.java.assignment.scorecalculator.DeltaScoreCalculator;
 import main.java.assignment.scorecalculator.IDeltaScoreCalculator;
 import main.java.assignment.scorecalculator.IScoreCalculator;
@@ -174,35 +175,44 @@ public class Main extends Application {
         //Disattivare se si vuole provare man mano nuove soluzioni premento invio
         boolean threadActive = true;
 
-        //Questa classe gestisce il comportamento delle azioni
-        IEuristic euristic = new MultipleSolutionEuristic(model, SEC_RUNNING);
 
         /*
         #############################################################################################################
         #############################################################################################################
         */
 
+        int cores = Runtime.getRuntime().availableProcessors();
+        EuristicThread[] threads = new EuristicThread[cores];
+
+        System.out.println("Numero di thread generati: " + cores);
+
+        for(int i=0; i<cores; i++){
+            ModelWrapper coreModel = new ModelWrapper(model.getAssignmentModel().clone(), new ScoreCalculator(), new DeltaScoreCalculator());
+            IEuristic euristic = new MultipleSolutionEuristic(coreModel, SEC_RUNNING);
+            threads[i] = new EuristicThread(euristic);
+            threads[i].start();
+            System.out.println("Fatto partire il tread numero " + i);
+        }
+
 
         //Thread che porta al blocco della soluzione dopo il timeout
         new Thread(() -> {
             try {
                 sleep(SEC_RUNNING * 1000);
+                for(int i=0; i<cores; i++){
+                    model.changeModel( threads[i].getBestSolution().clone());
+                    System.out.println("Thread " + i + ": trovato un modello con punteggio " + model.getActualScore());
+                }
+                System.exit(0);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             running = false;
         }).start();
 
-        //Esecuzione tramite invio dell'euristica
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            if(key.getCode()== KeyCode.ENTER) {
-                if(threadActive){
-                    model.print();
-                }else{
-                    euristic.iterate();
-                }
-            }
-        });
+
+                /*
 
         //Esecuzione automatica dell'euristica.
         new Thread(() -> {
@@ -229,6 +239,8 @@ public class Main extends Application {
                }
             }
         }).start();
+
+        */
 
     }
 

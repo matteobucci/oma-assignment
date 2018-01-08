@@ -184,7 +184,7 @@ public class MultipleSolutionEuristic extends IEuristic{
 
                 if (passi % PASSI_RIPROVA == 0) {
 
-                    if(secondiCorrenti > (SECONDI_FASE_1/2) && listaInizialiMigliori.size() < 5){
+                    if( secondiCorrenti > (SECONDI_FASE_1/2) && listaInizialiMigliori.size() < 5){
                         System.out.println("Ho trovato poche soluzioni. Cambio algoritmo");
                         firstSolutionGenerator = new OrderedSolutionGenerator(model);
                         solutionGenerator = new RandomSolutionGenerator(model);

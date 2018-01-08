@@ -2,6 +2,7 @@ package main.java.assignment.euristic;
 
 import main.java.assignment.firstsolution.IFirstSolutionGenerator;
 import main.java.assignment.improvement.ISolutionImprovator;
+import main.java.assignment.model.AssignmentModel;
 import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.model.ModelWrapper;
 import main.java.assignment.solution.ISolutionGenerator;
@@ -19,6 +20,10 @@ public abstract class IEuristic {
     }
 
     public abstract void iterate();
+
+    public AssignmentModel getBestAssignmentModel(){
+        return model.getCalculator().getBestUntilNow();
+    }
 
 
 }

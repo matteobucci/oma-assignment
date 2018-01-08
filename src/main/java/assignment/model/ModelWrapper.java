@@ -47,10 +47,7 @@ public class ModelWrapper implements IModelWrapper {
             }
         }
 
-        System.out.println("Generazione completa. Esami in conflitto presenti: " + getConflicts().size());
-        scoreCache = calculator.getScore(model, getConflicts().size());
-        isScoreValid = true;
-        System.out.println("Punteggio soluzione = " + scoreCache);
+        clearExamsMatrix();
 
     }
 

@@ -69,6 +69,8 @@ public interface IModelWrapper {
 
     double estimateTimeslotSwapValue(int t1, int t2);
 
+
+
     IScoreCalculator getCalculator();
 
     interface ModelListener{
