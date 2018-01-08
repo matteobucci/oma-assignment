@@ -39,7 +39,7 @@ public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
 
     @Override
     public void iterate() {
-
+        
         //Il vicinato generato
         List<Move> vicinato = new ArrayList<>();
         double startScore = model.getActualScore();  //Il punteggio della soluzione iniziale
@@ -83,6 +83,7 @@ public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
             }//Ciclo sui timeslot
         }//Ciclo sugli esami
 
+
         /*
          --- CONTROLLO VICINATO ---
         */
@@ -93,10 +94,11 @@ public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
         });
 
 
-
         for(Move move : vicinato){
             if((!queue.contains(move) && !lastExams.contains(move.exam))|| move.deltaMove > ((startScore / 100) * PERC_IMPROV)){
                 moveExam(move);
+
+
                 return;
             }else{
              //   System.out.println("Mossa non accettata");
@@ -126,6 +128,7 @@ public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
             model.shift();
             System.out.println("Shift done");
         }
+
 
 
     }

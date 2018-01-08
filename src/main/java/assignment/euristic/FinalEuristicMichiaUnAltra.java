@@ -61,7 +61,7 @@ public class FinalEuristicMichiaUnAltra extends IEuristic{
         SECONDI_FASE_2 = secondiTotali / 5; //TODO -> Scrivere relativamente al tempo totale
         MAX_SOLUZIONI_INIZIALI_TROVATE = 50;
         PASSI_RIPROVA = model.getExamsNumber();
-        PASSI_NO_MIGLIORAMENTO_MASSIMI = 30000/model.getExamsNumber();
+        PASSI_NO_MIGLIORAMENTO_MASSIMI = 100000/model.getExamsNumber();
         DIMENSIONE_LISTA_MIGLIORI = 30;
 
         System.out.println("SECONDI FASE 1 = " + SECONDI_FASE_1);

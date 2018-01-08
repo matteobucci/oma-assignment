@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.assignment.euristic.*;
+import main.java.assignment.model.FastModelWrapper;
 import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.model.ModelWrapper;
 import main.java.assignment.scorecalculator.DeltaScoreCalculator;
@@ -138,7 +139,7 @@ public class Main extends Application {
         IDeltaScoreCalculator deltaCalculator = new DeltaScoreCalculator(false); //Il flag fa stampare o meno i risultati del calculator
 
         //Creo il modello
-        IModelWrapper model = new ModelWrapper(timeSlotNumber, examNumber, calculator, deltaCalculator);
+        IModelWrapper model = new FastModelWrapper(timeSlotNumber, examNumber, calculator, deltaCalculator);
 
         //Lettura ESAMI DI OGNI STUDENTE
         Scanner scannerStu = new Scanner(stuFile);
