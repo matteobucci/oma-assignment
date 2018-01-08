@@ -334,10 +334,16 @@ public class ModelWrapper implements IModelWrapper {
 
     @Override
     public void randomSwapTimeSlot(int ts) {
-        boolean temp;
+
 
         int randomDestination = random.nextInt(getTimeslotsNumber());
 
+        swapTimeSlot(ts, randomDestination);
+    }
+
+    @Override
+    public void swapTimeSlot(int ts, int randomDestination) {
+        boolean temp;
         for(int i=0; i<getExamsNumber(); i++){
             temp = model.getExamMatrix()[ts][i];
             model.getExamMatrix()[ts][i] = model.getExamMatrix()[randomDestination][i];
@@ -360,7 +366,7 @@ public class ModelWrapper implements IModelWrapper {
         //Situazione attuale T1
         int startT1 = t1-5;
         if(startT1 < 0) startT1 = 0;
-        for(int i=startT1; i<=t1+5 || i< getExamsNumber(); i++){
+        for(int i=startT1; i<=t1+5 && i< getTimeslotsNumber(); i++){
             if(i == t1) continue; //Non considero me stesso
             dist = Math.abs(t1-i);
             Set<Integer> tempSet = getTimeslotExams(i);
@@ -371,10 +377,24 @@ public class ModelWrapper implements IModelWrapper {
             }
         }
 
+        //Situazione finale T1
+        startT1 = t2-5;
+        if(startT1 < 0) startT1 = 0;
+        for(int i=startT1; i<=t2+5 && i< getTimeslotsNumber(); i++){
+            if(i == t2) continue; //Non considero me stesso
+            dist = Math.abs(t2-i);
+            Set<Integer> tempSet = getTimeslotExams((i==t1)?t2:i);
+            for(int ex1 : tempSet){
+                for(int ex2 : t1Exams){
+                    punteggio -= getAssignmentModel().getConflictMatrix()[ex1][ex2] * Math.pow(2, 5-dist);
+                }
+            }
+        }
+
         //Sistuazione attuale T2
         int startT2 = t2-5;
         if(startT2 < 0) startT2 = 0;
-        for(int i=startT2; i<=t2+5 || i< getExamsNumber(); i++){
+        for(int i=startT2; i<=t2+5 && i< getTimeslotsNumber(); i++){
             if(i == t2) continue;
             dist = Math.abs(t1-i);
             Set<Integer> tempSet = getTimeslotExams(i);
@@ -385,8 +405,21 @@ public class ModelWrapper implements IModelWrapper {
             }
         }
 
+        //Situazione finale T2
+        startT2 = t1-5;
+        if(startT2 < 0) startT2 = 0;
+        for(int i=startT2; i<=t1+5 && i< getTimeslotsNumber(); i++){
+            if(i == t1) continue; //Non considero me stesso
+            dist = Math.abs(t1-i);
+            Set<Integer> tempSet = getTimeslotExams((i==t2)?t1:i);
+            for(int ex1 : tempSet){
+                for(int ex2 : t1Exams){
+                    punteggio -= getAssignmentModel().getConflictMatrix()[ex1][ex2] * Math.pow(2, 5-dist);
+                }
+            }
+        }
 
-        return 0;
+        return punteggio;
     }
 
     @Override

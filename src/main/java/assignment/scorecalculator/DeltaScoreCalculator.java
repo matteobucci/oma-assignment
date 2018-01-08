@@ -34,7 +34,7 @@ public class DeltaScoreCalculator implements IDeltaScoreCalculator {
         if(startIndex < 0) startIndex = 0;
 
 
-        for(int i=startIndex; (i<fromTimeSlot+5 && i<model.getTimeslotsNumber()); i++){
+        for(int i=startIndex; (i<=fromTimeSlot+5 && i<model.getTimeslotsNumber()); i++){
             if(i == fromTimeSlot) continue;
             Set<Integer> set = model.getTimeslotExams(i);
             for(Integer actual : set){
@@ -46,7 +46,7 @@ public class DeltaScoreCalculator implements IDeltaScoreCalculator {
         int toStartIndex = toTimeSlot -5;
         if(toStartIndex < 0) toStartIndex = 0;
 
-        for(int i=toStartIndex; (i<toTimeSlot+5 && i<model.getTimeslotsNumber()); i++){
+        for(int i=toStartIndex; (i<=toTimeSlot+5 && i<model.getTimeslotsNumber()); i++){
             if(i == fromTimeSlot) continue;
             Set<Integer> set = model.getTimeslotExams(i);
             for(Integer actual : set){

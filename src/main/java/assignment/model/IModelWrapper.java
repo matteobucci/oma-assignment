@@ -65,6 +65,8 @@ public interface IModelWrapper {
 
     void randomSwapTimeSlot(int i);
 
+    void swapTimeSlot(int t1, int t2);
+
     double estimateTimeslotSwapValue(int t1, int t2);
 
     IScoreCalculator getCalculator();

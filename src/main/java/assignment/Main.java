@@ -176,7 +176,7 @@ public class Main extends Application {
         //IEuristic euristic = new FirstSolutionsEuristic(model); //Questa euristica genera un sacco di soluzioni e stampa informazioni utili su di queste
         //IEuristic euristic = new StandardEuristic(model, SEC_RUNNING); //Questa è l'euristica finale che occorre consegnare
         //IEuristic euristic = new IterationEuristic(model, SEC_RUNNING);
-        IEuristic euristic = new FinalEuristicMichiaUnAltra(model, SEC_RUNNING);
+        IEuristic euristic = new FinalEuristicMichiaUnAltraDue(model, SEC_RUNNING);
 
         /*
         #############################################################################################################
@@ -213,7 +213,7 @@ public class Main extends Application {
                    try(BufferedWriter writer = new BufferedWriter(new FileWriter(new File(prefix+".sol")))){
                        model.changeModel(model.getCalculator().getBestUntilNow());
                        for(int i=0; i<model.getExamsNumber(); i++){
-                           String stringa = i+1 + " " + model.getExamTimeslot(i) + "\n";
+                           String stringa = (i+1) + " " + (model.getExamTimeslot(i)+1) + "\n";
                            System.out.println(stringa);
                            writer.write(stringa);
                        }

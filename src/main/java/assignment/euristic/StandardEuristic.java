@@ -16,6 +16,7 @@ import main.java.assignment.scorecalculator.IScoreCalculator;
 import main.java.assignment.scorecalculator.ScoreCalculator;
 import main.java.assignment.solution.RandomSolutionGenerator;
 import main.java.assignment.solution.TabuSearchSolutionGenerator;
+import main.java.assignment.solution.TabuSearchSolutionGeneratorExtreme;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,7 +31,7 @@ public class StandardEuristic extends IEuristic{
         swap = new SwapSolutionImprovator(model);
         tabu = new TabuSearchImprovator(model);
 
-        this.solutionGenerator = new TabuSearchSolutionGenerator(model);
+        this.solutionGenerator = new TabuSearchSolutionGeneratorExtreme(model);
         this.firstSolutionGenerator = new RandomFirstSolutionGenerator(model);
         this.solutionImprovator = tabu;
         this.secondiTotali = secondiTotali;

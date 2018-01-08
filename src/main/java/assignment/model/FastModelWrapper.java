@@ -123,22 +123,78 @@ public class FastModelWrapper implements IModelWrapper {
         Set<Integer> t1Exams = getTimeslotExams(t1);
         Set<Integer> t2Exams = getTimeslotExams(t2);
 
+        int dist;
+
+        double punteggioT1Init = 0;
+        double punteggioT1End = 0;
+        double punteggioT2Init = 0;
+        double punteggioT2End = 0;
 
         //Situazione attuale T1
         int startT1 = t1-5;
         if(startT1 < 0) startT1 = 0;
-        for(int i=startT1; i<=t1+5 || i< getExamsNumber(); i++){
-
+        for(int i=startT1; i<=t1+5 && i < getTimeslotsNumber(); i++){
+            if(i == t1) continue; //Non considero me stesso
+            dist = Math.abs(t1-i);
+            Set<Integer> tempSet = getTimeslotExams(i);
+            for(int ex1 : tempSet){
+                for(int ex2 : t1Exams){
+                    punteggioT1Init += (getAssignmentModel().getConflictMatrix()[ex1][ex2] * Math.pow(2, 5-dist)) / model.getEnrolledStudents().size();
+                }
+            }
         }
+
+        //System.out.println("T1 start: " + punteggioT1Init);
+
+        //Situazione finale T1
+        startT1 = t2-5;
+        if(startT1 < 0) startT1 = 0;
+        for(int i=startT1; i<=t2+5 && i< getTimeslotsNumber(); i++){
+            if(i == t2) continue; //Non considero me stesso
+            dist = Math.abs(t2-i);
+            Set<Integer> tempSet = getTimeslotExams((i==t1)?t2:i);
+            for(int ex1 : tempSet){
+                for(int ex2 : t1Exams){
+                    punteggioT1End += (getAssignmentModel().getConflictMatrix()[ex1][ex2] * Math.pow(2, 5-dist)) / model.getEnrolledStudents().size();
+                }
+            }
+        }
+
+        //System.out.println("T1 end: " + punteggioT1End);
 
         //Sistuazione attuale T2
         int startT2 = t2-5;
         if(startT2 < 0) startT2 = 0;
-        for(int i=startT2; i<=t2+5 || i< getExamsNumber(); i++){
-
+        for(int i=startT2; i<=t2+5 && i< getTimeslotsNumber(); i++){
+            if(i == t2) continue;
+            dist = Math.abs(t2-i);
+            Set<Integer> tempSet = getTimeslotExams(i);
+            for(int ex1 : tempSet){
+                for(int ex2 : t2Exams){
+                    punteggioT2Init += (getAssignmentModel().getConflictMatrix()[ex1][ex2] * Math.pow(2, 5-dist)) / model.getEnrolledStudents().size();
+                }
+            }
         }
 
-        return 0;
+       // System.out.println("T2 start: " + punteggioT2Init);
+
+        //Situazione finale T2
+        startT2 = t1-5;
+        if(startT2 < 0) startT2 = 0;
+        for(int i=startT2; i<=t1+5 && i< getTimeslotsNumber(); i++){
+            if(i == t1) continue; //Non considero me stesso
+            dist = Math.abs(t1-i);
+            Set<Integer> tempSet = getTimeslotExams((i==t2)?t1:i);
+            for(int ex1 : tempSet){
+                for(int ex2 : t2Exams){
+                    punteggioT2End += (getAssignmentModel().getConflictMatrix()[ex1][ex2] * Math.pow(2, 5-dist)) / model.getEnrolledStudents().size();
+                }
+            }
+        }
+
+      //  System.out.println("T2 end: " + punteggioT2End);
+
+        return punteggioT1Init + punteggioT2Init - punteggioT1End - punteggioT2End;
     }
 
 
@@ -397,19 +453,25 @@ public class FastModelWrapper implements IModelWrapper {
 
     @Override
     public void randomSwapTimeSlot(int ts) {
-        boolean temp;
+
 
         int randomDestination = random.nextInt(getTimeslotsNumber());
+        swapTimeSlot(ts, randomDestination);
+    }
 
+    @Override
+    public void swapTimeSlot(int t1, int t2) {
+
+        boolean temp;
         for(int i=0; i<getExamsNumber(); i++){
-            temp = model.getExamMatrix()[ts][i];
-            model.getExamMatrix()[ts][i] = model.getExamMatrix()[randomDestination][i];
-            model.getExamMatrix()[randomDestination][i] = temp;
+            temp = model.getExamMatrix()[t1][i];
+            model.getExamMatrix()[t1][i] = model.getExamMatrix()[t2][i];
+            model.getExamMatrix()[t2][i] = temp;
         }
 
-        Set<Integer> tempCache = timeslotCache[ts];
-        timeslotCache[ts] = timeslotCache[randomDestination];
-        timeslotCache[randomDestination] = tempCache;
+        Set<Integer> tempCache = timeslotCache[t1];
+        timeslotCache[t1] = timeslotCache[t2];
+        timeslotCache[t2] = tempCache;
 
         isScoreValid = false;
     }

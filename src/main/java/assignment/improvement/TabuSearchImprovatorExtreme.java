@@ -16,24 +16,24 @@ public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
 
     /* Parametri della TABU SEARCH */
 
-    //Dimensione lista
-    private static final int LIST_SIZE = 120;
+
     //Percentuale di miglioramento oltre la quale ignoro che una soluzione sia scartata
     private static final float PERC_IMPROV = 1f;
 
-    private boolean accettaTutto = false; //Se false accetta solo solo soluzioni migliori
+    private boolean accettaTutto = true; //Se false accetta solo solo soluzioni migliori
 
     private IModelWrapper model;
 
 
-    private LimitedQueue<Move> queue = new LimitedQueue<>(LIST_SIZE);
-    private LimitedQueue<Integer> lastExams = new LimitedQueue<>(10);
+    private LimitedQueue<Move> queue;
     private Random random = new Random();
     private int fallimenti = 0;
 
 
     public TabuSearchImprovatorExtreme(IModelWrapper model){
         this.model = model;
+        int listSize = model.getExamsNumber() * model.getTimeslotsNumber() / 50;
+        queue = new LimitedQueue<>(listSize);
     }
 
 
@@ -71,9 +71,7 @@ public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
 
                         if(accettaTutto || startScore - actualScore > 0){
                             Move move = new Move(ex, exTimeSlot, i, startScore - actualScore);
-
                             vicinato.add(move);
-
                         }
 
                     }
@@ -82,7 +80,6 @@ public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
 
             }//Ciclo sui timeslot
         }//Ciclo sugli esami
-
 
         /*
          --- CONTROLLO VICINATO ---
@@ -95,41 +92,13 @@ public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
 
 
         for(Move move : vicinato){
-            if((!queue.contains(move) && !lastExams.contains(move.exam))|| move.deltaMove > ((startScore / 100) * PERC_IMPROV)){
+            if((!queue.contains(move))){
+
+
                 moveExam(move);
-
-
                 return;
-            }else{
-             //   System.out.println("Mossa non accettata");
             }
         }
-
-        int divisiore = 1;
-        if (vicinato.size() > 1000) {
-            divisiore = 100;
-        } else if (vicinato.size() > 100) {
-            divisiore = 10;
-        }
-
-        if(!vicinato.isEmpty()){
-            int selectedIndex = random.nextInt(vicinato.size() / divisiore);
-            Move selectedMove = vicinato.get(selectedIndex);
-            moveExam(selectedMove);
-        }
-
-        accettaTutto = true;
-
-
-        fallimenti++;
-
-        if(fallimenti > 10){
-            fallimenti = 0;
-            model.shift();
-            System.out.println("Shift done");
-        }
-
-
 
     }
 
@@ -138,7 +107,6 @@ public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
         //   model.assignExams(selectedMove.from, selectedMove.exam, false);
         //   model.assignExams(selectedMove.to, selectedMove.exam, true);
         queue.add(selectedMove);
-        lastExams.add(selectedMove.exam);
     }
 
     class Move{
@@ -159,8 +127,7 @@ public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
         public boolean equals(Object o) {
             if(o instanceof Move){
                 Move move = (Move) o;
-                return move.exam == this.exam && ((move.from == this.from && move.to == this.to)||(move.from == this.to && move.to == this.from));
-                //return move.exam == this.exam &&  move.to == this.from;
+                return move.exam == this.exam && move.to == this.from;
             }
             return false;
         }

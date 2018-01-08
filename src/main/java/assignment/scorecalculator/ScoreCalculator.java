@@ -19,11 +19,8 @@ public class ScoreCalculator implements IScoreCalculator{
         for(int t = 0; t < timeSlotNumber; t++){
             for(int e = 0; e < examNumber; e ++){
                 if(examMatrix[t][e]){
-                    for(int i = 1; i < 5 && (t+i < timeSlotNumber); i++){
+                    for(int i = 1; i <= 5 && (t+i < timeSlotNumber); i++){
                         for(int e2 = 0; e2 < examNumber; e2++){
-                            if(t+i >= 140){
-                                System.out.println("Debug");
-                            }
                             try{
                                 if(examMatrix[t+i][e2]){
                                     //Conflitto!
