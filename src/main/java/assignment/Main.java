@@ -213,8 +213,14 @@ public class Main extends Application {
                    try(BufferedWriter writer = new BufferedWriter(new FileWriter(new File(prefix+".sol")))){
                        model.changeModel(model.getCalculator().getBestUntilNow());
                        for(int i=0; i<model.getExamsNumber(); i++){
-                           writer.write(i+1 + " " + model.getExamTimeslot(i) + "\n");
+                           String stringa = i+1 + " " + model.getExamTimeslot(i) + "\n";
+                           System.out.println(stringa);
+                           writer.write(stringa);
                        }
+
+                       writer.flush();
+                       writer.close();
+
                        System.out.println("Terminata la scrittura del modello");
                        System.out.println("La soluzione ha un punteggio di " + model.getActualScore());
                        System.exit(0);

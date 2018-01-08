@@ -355,13 +355,20 @@ public class ModelWrapper implements IModelWrapper {
 
         int dist;
 
+        double punteggio = 0;
 
         //Situazione attuale T1
         int startT1 = t1-5;
         if(startT1 < 0) startT1 = 0;
         for(int i=startT1; i<=t1+5 || i< getExamsNumber(); i++){
-            if(i == t1) continue;
-
+            if(i == t1) continue; //Non considero me stesso
+            dist = Math.abs(t1-i);
+            Set<Integer> tempSet = getTimeslotExams(i);
+            for(int ex1 : tempSet){
+                for(int ex2 : t1Exams){
+                    punteggio += getAssignmentModel().getConflictMatrix()[ex1][ex2] * Math.pow(2, 5-dist);
+                }
+            }
         }
 
         //Sistuazione attuale T2
@@ -369,7 +376,15 @@ public class ModelWrapper implements IModelWrapper {
         if(startT2 < 0) startT2 = 0;
         for(int i=startT2; i<=t2+5 || i< getExamsNumber(); i++){
             if(i == t2) continue;
+            dist = Math.abs(t1-i);
+            Set<Integer> tempSet = getTimeslotExams(i);
+            for(int ex1 : tempSet){
+                for(int ex2 : t2Exams){
+                    punteggio += getAssignmentModel().getConflictMatrix()[ex1][ex2] * Math.pow(2, 5-dist);
+                }
+            }
         }
+
 
         return 0;
     }
