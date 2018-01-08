@@ -41,30 +41,6 @@ public class CachedModelWrapper implements IModelWrapper {
         clearExamsMatrix();
     }
 
-    public CachedModelWrapper(AssignmentModel assignmentModel, IScoreCalculator calculator, IDeltaScoreCalculator deltaCalculator){
-        System.out.println("Generazione ModelWrapper a partire da soluzione esistente");
-        model = assignmentModel;
-
-        this.calculator = calculator;
-        this.deltaCalculator = deltaCalculator;
-
-        for(int i = 0; i < model.getExamMatrix().length; i++){
-            for(int j = 0; j < model.getExamMatrix()[i].length; j++){
-                // i -> Timeslot
-                // j -> Esame
-                if(model.getExamMatrix()[i][j]){
-                    processConflict(j, i, true);
-                }
-            }
-        }
-
-        System.out.println("Generazione completa. Esami in conflitto presenti: " + getConflicts().size());
-        scoreCache = calculator.getScore(model, getConflicts().size());
-        isScoreValid = true;
-        System.out.println("Punteggio soluzione = " + scoreCache);
-
-    }
-
     @Override
     public AssignmentModel getAssignmentModel() {
         return model;

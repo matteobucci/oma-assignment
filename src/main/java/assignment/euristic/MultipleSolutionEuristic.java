@@ -18,7 +18,7 @@ public class MultipleSolutionEuristic extends IEuristic{
     int secondiTotali;
 
     //Variabili passo 0
-    int MAX_SOLUZIONI_INIZIALI_TROVATE; //TODO: E' un parametro
+    int MAX_SOLUZIONI_INIZIALI_TROVATE;
     BestModelList listaInizialiMigliori;
     AssignmentModel migliorModel = null;
 
@@ -125,7 +125,7 @@ public class MultipleSolutionEuristic extends IEuristic{
 
                     if(PASSI_NO_MIGLIORAMENTO_MASSIMI < passi){
                        if(listaInizialiMigliori.size() > 0){
-                           System.out.println("Finito il miglioramento. Passo al successivo");
+
                            listaMigliori.add(new ModelPair(lastPunteggio, migliorModel));
                            model.changeModel(listaInizialiMigliori.remove(0).getModel());
                            lastPunteggio = Double.MAX_VALUE;
@@ -136,14 +136,12 @@ public class MultipleSolutionEuristic extends IEuristic{
                        }
                     }
 
-                    //model.randomSwapTimeSlot();
                     solutionImprovator.iterate();
                     passi++;
 
                     if(lastPunteggio > model.getActualScore()){
                         lastPunteggio = model.getActualScore();
                         passi = 0;
-                        System.out.println("Nuovo punteggio minimo: " + lastPunteggio);
                         migliorModel = model.getAssignmentModel().clone();
                     }
 
@@ -159,7 +157,6 @@ public class MultipleSolutionEuristic extends IEuristic{
                             solutionImprovator = new TabuSearchImprovatorExtreme(model);
                             lastPunteggio = Double.MAX_VALUE;
                             passi = 0;
-                            System.out.println("Passo al prossimo modello da migliorare");
                         }
                     }
 
@@ -169,7 +166,6 @@ public class MultipleSolutionEuristic extends IEuristic{
                     if(lastPunteggio > model.getActualScore()){
                         lastPunteggio = model.getActualScore();
                         passi = 0;
-                        System.out.println("Nuovo punteggio minimo: " + lastPunteggio);
                         migliorModel = model.getAssignmentModel().clone();
                     }
 
@@ -191,10 +187,8 @@ public class MultipleSolutionEuristic extends IEuristic{
                         PASSI_RIPROVA = model.getExamsNumber();
                     }
 
-                    System.out.println("Riprovo dall'inizio. Conflitti questa volta: " + model.getConflictNumber());
                     firstSolutionGenerator.generateFirstSolution();
                     solutionGenerator = new TabuSearchSolutionGenerator(model);
-                    System.out.println("Conflitti di partenza: " + model.getConflictNumber());
                     passi = 0;
 
 
@@ -202,7 +196,6 @@ public class MultipleSolutionEuristic extends IEuristic{
 
             }
         } else {
-            System.out.println("Genero la prima soluzione");
             firstSolutionGenerator.generateFirstSolution();
         }
     }

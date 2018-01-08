@@ -4,18 +4,14 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.assignment.euristic.*;
 import main.java.assignment.model.CachedModelWrapper;
 import main.java.assignment.model.IModelWrapper;
-import main.java.assignment.model.ModelWrapper;
 import main.java.assignment.scorecalculator.DeltaScoreCalculator;
 import main.java.assignment.scorecalculator.IDeltaScoreCalculator;
 import main.java.assignment.scorecalculator.IScoreCalculator;
 import main.java.assignment.scorecalculator.ScoreCalculator;
-import main.java.assignment.view.CanvasViewer;
 import org.apache.commons.cli.*;
 
 import java.io.*;
@@ -133,23 +129,6 @@ public class Main extends Application {
 
         System.out.println("Numero esami: " + examNumber);
 
-        //Calcolatore di punteggio completo
-        IScoreCalculator calculator = new ScoreCalculator();
-        //Calcolatore della differenza di punteggi con una mossa
-        IDeltaScoreCalculator deltaCalculator = new DeltaScoreCalculator(false); //Il flag fa stampare o meno i risultati del calculator
-
-        //Creo il modello
-        IModelWrapper model = new CachedModelWrapper(timeSlotNumber, examNumber, calculator, deltaCalculator);
-
-        //Lettura ESAMI DI OGNI STUDENTE
-        Scanner scannerStu = new Scanner(stuFile);
-        while(scannerStu.hasNext()){
-            int stuId = Integer.parseInt(scannerStu.next().substring(1));
-            int exId = scannerStu.nextInt() -1;
-            model.addEnrolledStudent(exId, stuId);
-        }
-        scannerStu.close();
-
 
         /*
 
@@ -182,13 +161,30 @@ public class Main extends Application {
         */
 
         int cores = Runtime.getRuntime().availableProcessors();
+        CachedModelWrapper[] models = new CachedModelWrapper[cores];
         EuristicThread[] threads = new EuristicThread[cores];
 
         System.out.println("Numero di thread generati: " + cores);
 
         for(int i=0; i<cores; i++){
-            ModelWrapper coreModel = new ModelWrapper(model.getAssignmentModel().clone(), new ScoreCalculator(), new DeltaScoreCalculator());
-            IEuristic euristic = new MultipleSolutionEuristic(coreModel, SEC_RUNNING);
+            models[i] = new CachedModelWrapper(timeSlotNumber, examNumber, new ScoreCalculator(), new DeltaScoreCalculator());
+        }
+
+
+        //Lettura ESAMI DI OGNI STUDENTE
+        Scanner scannerStu = new Scanner(stuFile);
+        while(scannerStu.hasNext()){
+            int stuId = Integer.parseInt(scannerStu.next().substring(1));
+            int exId = scannerStu.nextInt() -1;
+            for(int i=0; i<cores; i++){
+                models[i].addEnrolledStudent(exId, stuId);
+            }
+        }
+        scannerStu.close();
+
+
+        for(int i=0; i<cores; i++){
+            IEuristic euristic = new MultipleSolutionEuristic(models[i], SEC_RUNNING);
             threads[i] = new EuristicThread(euristic);
             threads[i].start();
             System.out.println("Fatto partire il tread numero " + i);
@@ -196,13 +192,41 @@ public class Main extends Application {
 
 
         //Thread che porta al blocco della soluzione dopo il timeout
+        int finalCores = cores;
         new Thread(() -> {
             try {
                 sleep(SEC_RUNNING * 1000);
-                for(int i=0; i<cores; i++){
-                    model.changeModel( threads[i].getBestSolution().clone());
-                    System.out.println("Thread " + i + ": trovato un modello con punteggio " + model.getActualScore());
+                int bestThread = 0;
+                double bestScore = Double.MAX_VALUE;
+
+                for(int i = 0; i< finalCores; i++){
+                    models[i].changeModel( threads[i].getBestSolution().clone());
+                    System.out.println("Thread " + i + ": trovato un modello con punteggio " + models[i].getActualScore());
+                    if(models[i].getActualScore() < bestScore) {
+                        bestThread = i;
+                        bestScore = models[i].getActualScore();
+                    }
                 }
+
+                try(BufferedWriter writer = new BufferedWriter(new FileWriter(new File(prefix+".sol")))){
+                    models[bestThread].changeModel(models[bestThread].getCalculator().getBestUntilNow());
+                    for(int i=0; i<models[bestThread].getExamsNumber(); i++){
+                        String stringa = (i+1) + " " + (models[bestThread].getExamTimeslot(i)+1) + "\n";
+                        writer.write(stringa);
+                    }
+
+                    writer.flush();
+                    writer.close();
+
+                    System.out.println("Terminata la scrittura del modello");
+                    System.out.println("La soluzione ha un punteggio di " + models[bestThread].getActualScore());
+                    System.exit(0);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+
                 System.exit(0);
 
             } catch (InterruptedException e) {
@@ -219,23 +243,7 @@ public class Main extends Application {
             while(running && threadActive){
                euristic.iterate();
                if(!running){
-                   try(BufferedWriter writer = new BufferedWriter(new FileWriter(new File(prefix+".sol")))){
-                       model.changeModel(model.getCalculator().getBestUntilNow());
-                       for(int i=0; i<model.getExamsNumber(); i++){
-                           String stringa = (i+1) + " " + (model.getExamTimeslot(i)+1) + "\n";
-                           System.out.println(stringa);
-                           writer.write(stringa);
-                       }
 
-                       writer.flush();
-                       writer.close();
-
-                       System.out.println("Terminata la scrittura del modello");
-                       System.out.println("La soluzione ha un punteggio di " + model.getActualScore());
-                       System.exit(0);
-                   } catch (IOException e) {
-                       e.printStackTrace();
-                   }
                }
             }
         }).start();
