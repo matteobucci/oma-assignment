@@ -118,6 +118,31 @@ public class FastModelWrapper implements IModelWrapper {
     }
 
     @Override
+    public double estimateTimeslotSwapValue(int t1, int t2) {
+
+        Set<Integer> t1Exams = getTimeslotExams(t1);
+        Set<Integer> t2Exams = getTimeslotExams(t2);
+
+
+        //Situazione attuale T1
+        int startT1 = t1-5;
+        if(startT1 < 0) startT1 = 0;
+        for(int i=startT1; i<=t1+5 || i< getExamsNumber(); i++){
+
+        }
+
+        //Sistuazione attuale T2
+        int startT2 = t2-5;
+        if(startT2 < 0) startT2 = 0;
+        for(int i=startT2; i<=t2+5 || i< getExamsNumber(); i++){
+
+        }
+
+        return 0;
+    }
+
+
+    @Override
     public int getTimeslotsNumber() {
         return model.getExamMatrix().length;
     }

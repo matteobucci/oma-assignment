@@ -150,6 +150,8 @@ public class Main extends Application {
         }
         scannerStu.close();
 
+
+
         //Avvio la finestra
         Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         setupStage(primaryStage, canvas);
@@ -158,6 +160,8 @@ public class Main extends Application {
         //Visualizzazione a schermo dei risultati
         ModelPresenter presenter = new ModelPresenter(canvasViewer, model);         //Griglia degli esami
         ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);    //Testo con punteggi
+
+
 
         /*
         #############################################################################################################

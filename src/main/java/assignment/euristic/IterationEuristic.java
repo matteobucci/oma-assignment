@@ -39,8 +39,8 @@ public class IterationEuristic extends IEuristic{
     public IterationEuristic(IModelWrapper model, int secondiTotali) {
         super(model);
 
-        this.solutionGenerator = new RandomSolutionGenerator(model);
-        this.firstSolutionGenerator = new Alberto2SolutionGenerator(model);
+        this.solutionGenerator = new TabuSearchSolutionGeneratorExtreme(model);
+        this.firstSolutionGenerator = new RandomFirstSolutionGenerator(model);
         this.solutionImprovator = new SwapTimeSlotImprovator(model);
         model.printOnlyCompleteSolutions(false);
         System.out.println("I secondi totali sono: " + secondiTotali);
@@ -123,7 +123,7 @@ public class IterationEuristic extends IEuristic{
                 solutionGenerator.iterate();
                 passi++;
 
-                if (passi % model.getExamsNumber()    == 0) {
+                if (passi % (model.getExamsNumber()*20)   == 0) {
                     System.out.println("Riprovo dall'inizio. Conflitti questa volta: " + model.getConflictNumber());
                     firstSolutionGenerator.generateFirstSolution();
                     System.out.println("Conflitti di partenza: " + model.getConflictNumber());
