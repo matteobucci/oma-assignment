@@ -1,20 +1,17 @@
 package main.java.assignment.euristic;
 
-import main.java.assignment.firstsolution.Alberto2SolutionGenerator;
-import main.java.assignment.firstsolution.RandomFirstSolutionGenerator;
+import main.java.assignment.firstsolution.OrderedSolutionGenerator;
 import main.java.assignment.improvement.SwapTimeSlotImprovator;
 import main.java.assignment.improvement.TabuSearchImprovatorAlberto;
-import main.java.assignment.improvement.TabuSearchImprovatorExtreme;
 import main.java.assignment.model.AssignmentModel;
 import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.solution.RandomSolutionGenerator;
-import main.java.assignment.solution.TabuSearchSolutionGeneratorExtreme;
-import main.java.assignment.util.BestList;
-import main.java.assignment.util.ExamPair;
+import main.java.assignment.util.BestModelList;
+import main.java.assignment.util.ModelPair;
 
 import java.util.Comparator;
 
-public class FinalEuristicMichiaUnAltra extends IEuristic{
+public class SingleSolutionEuristic extends IEuristic{
 
     int passi = 0;
 
@@ -29,7 +26,7 @@ public class FinalEuristicMichiaUnAltra extends IEuristic{
     //Variabili passo 2
     double punteggioModelloPeggiore = Double.MAX_VALUE;
     private int DIMENSIONE_LISTA_MIGLIORI; //La dimensione della lista dei migliori
-    BestList listaMigliori;
+    BestModelList listaMigliori;
 
     //Variabili passo 3
     double lastPunteggio = Double.MAX_VALUE;
@@ -49,10 +46,10 @@ public class FinalEuristicMichiaUnAltra extends IEuristic{
     private int PASSI_RIPROVA = 0;
 
 
-    public FinalEuristicMichiaUnAltra(IModelWrapper model, int secondiTotali) {
+    public SingleSolutionEuristic(IModelWrapper model, int secondiTotali) {
         super(model);
         this.solutionGenerator = new RandomSolutionGenerator(model);
-        this.firstSolutionGenerator = new Alberto2SolutionGenerator(model);
+        this.firstSolutionGenerator = new OrderedSolutionGenerator(model);
         this.solutionImprovator = new SwapTimeSlotImprovator(model);
         model.printOnlyCompleteSolutions(false);
         System.out.println("I secondi totali sono: " + secondiTotali);
@@ -72,7 +69,7 @@ public class FinalEuristicMichiaUnAltra extends IEuristic{
 
 
 
-        listaMigliori = new BestList(DIMENSIONE_LISTA_MIGLIORI);
+        listaMigliori = new BestModelList(DIMENSIONE_LISTA_MIGLIORI);
     }
 
     @Override
@@ -114,7 +111,7 @@ public class FinalEuristicMichiaUnAltra extends IEuristic{
                     solutionImprovator.iterate();
 
                     if(listaMigliori.shouldAdd(model.getActualScore())){
-                        listaMigliori.add(new ExamPair(model.getActualScore(), model.getAssignmentModel().clone()));
+                        listaMigliori.add(new ModelPair(model.getActualScore(), model.getAssignmentModel().clone()));
                     }
                 }
 
@@ -166,18 +163,18 @@ public class FinalEuristicMichiaUnAltra extends IEuristic{
         //Init fase 3
         System.out.println("Passo alla fase 3");
         solutionImprovator = new TabuSearchImprovatorAlberto(model);
-        listaMigliori.sort(new Comparator<ExamPair>() {
+        listaMigliori.sort(new Comparator<ModelPair>() {
             @Override
-            public int compare(ExamPair examPair, ExamPair t1) {
-                if(examPair.getScore() == t1.getScore()) return 0;
-                if(examPair.getScore() < t1.getScore()){
+            public int compare(ModelPair modelPair, ModelPair t1) {
+                if(modelPair.getScore() == t1.getScore()) return 0;
+                if(modelPair.getScore() < t1.getScore()){
                     return -1;
                 }else{
                     return 1;
                 }
             }
         });
-        for(ExamPair pair: listaMigliori){
+        for(ModelPair pair: listaMigliori){
             model.changeModel(pair.getModel());
             System.out.println("MODELLO: " + model.getActualScore());
         }

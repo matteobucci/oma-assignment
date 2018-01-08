@@ -6,11 +6,11 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class AlbertoSolutionGenerator implements IFirstSolutionGenerator {
+public class OrderedSolutionGenerator implements IFirstSolutionGenerator {
 
     private final IModelWrapper model;
 
-    public AlbertoSolutionGenerator(IModelWrapper model){
+    public OrderedSolutionGenerator(IModelWrapper model){
         this.model = model;
     }
 
@@ -18,6 +18,8 @@ public class AlbertoSolutionGenerator implements IFirstSolutionGenerator {
     public void generateFirstSolution() {
         model.clearExamsMatrix();
         int[] vettoreEsamiOrdinati = model.orderMatrix(); //////////////////////////////////////////////////
+        int attempt = 0;
+        Random random =  new Random(System.currentTimeMillis());
 
 
         //STAMPA DI DEBUG
@@ -27,13 +29,17 @@ public class AlbertoSolutionGenerator implements IFirstSolutionGenerator {
 
         //TODO adesso inserisco i base al vettore ordinato
         Set<Integer> esamiAssegnati = new HashSet<>();
+        int firstTimeSlot = random.nextInt(model.getTimeslotsNumber());
 
         for(int i=0; i<model.getExamsNumber(); i++){
-            int actualTimeSlot = model.getTimeslotsNumber() -1;
+            int actualTimeSlot = firstTimeSlot;
+            attempt = 0;
             // while(model.estimateNumberOfConflictOfExam(actualTimeSlot, i) != 0){
             while(model.estimateNumberOfConflictOfExam(actualTimeSlot, vettoreEsamiOrdinati[i]) != 0){
-                actualTimeSlot--;
-                if(actualTimeSlot < 0){
+                actualTimeSlot++;
+                attempt++;
+                actualTimeSlot = actualTimeSlot % model.getTimeslotsNumber();
+                if(attempt >= model.getTimeslotsNumber()){
                     //Non riesco a comporre una soluzione valida
                     actualTimeSlot = new Random().nextInt(model.getTimeslotsNumber());
                     break;
@@ -46,5 +52,6 @@ public class AlbertoSolutionGenerator implements IFirstSolutionGenerator {
 
         }
     }
+
 
 }

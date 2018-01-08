@@ -101,10 +101,6 @@ public class TabuSearchImprovatorAlberto implements ISolutionImprovator {
             bestScore=100000;
         }
 
-
-    }
-
-
     class Move {
         int from;
         int to;
@@ -123,5 +119,10 @@ public class TabuSearchImprovatorAlberto implements ISolutionImprovator {
 
 
     }
+
+    }
+
+
+
 
 

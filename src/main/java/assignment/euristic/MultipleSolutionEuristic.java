@@ -1,25 +1,25 @@
 package main.java.assignment.euristic;
 
-import main.java.assignment.firstsolution.Alberto2SolutionGenerator;
+import main.java.assignment.firstsolution.OrderedSolutionGenerator;
 import main.java.assignment.firstsolution.RandomFirstSolutionGenerator;
 import main.java.assignment.improvement.*;
 import main.java.assignment.model.AssignmentModel;
 import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.solution.RandomSolutionGenerator;
-import main.java.assignment.solution.TabuSearchSolutionGeneratorExtreme;
-import main.java.assignment.util.BestList;
-import main.java.assignment.util.ExamPair;
+import main.java.assignment.solution.TabuSearchSolutionGenerator;
+import main.java.assignment.util.BestModelList;
+import main.java.assignment.util.ModelPair;
 
 import java.util.Comparator;
 
-public class FinalEuristicMichiaUnAltraDue extends IEuristic{
+public class MultipleSolutionEuristic extends IEuristic{
 
     int passi = 0;
     int secondiTotali;
 
     //Variabili passo 0
     int MAX_SOLUZIONI_INIZIALI_TROVATE; //TODO: E' un parametro
-    BestList listaInizialiMigliori;
+    BestModelList listaInizialiMigliori;
     AssignmentModel migliorModel = null;
 
     int tempoIniziale = (int) System.currentTimeMillis();
@@ -27,7 +27,7 @@ public class FinalEuristicMichiaUnAltraDue extends IEuristic{
     //Variabili passo 2
     double punteggioModelloPeggiore = Double.MAX_VALUE;
     private int DIMENSIONE_LISTA_MIGLIORI; //La dimensione della lista dei migliori
-    BestList listaMigliori;
+    BestModelList listaMigliori;
 
     //Variabili passo 3
     double lastPunteggio = Double.MAX_VALUE;
@@ -47,17 +47,17 @@ public class FinalEuristicMichiaUnAltraDue extends IEuristic{
     private int PASSI_RIPROVA = 0;
 
 
-    public FinalEuristicMichiaUnAltraDue(IModelWrapper model, int secondiTotali) {
+    public MultipleSolutionEuristic(IModelWrapper model, int secondiTotali) {
         super(model);
         if(model.getExamsNumber() < 185){
             System.out.println("Provo a generare una soluzione random");
-            this.solutionGenerator = new TabuSearchSolutionGeneratorExtreme(model);
+            this.solutionGenerator = new TabuSearchSolutionGenerator(model);
             this.firstSolutionGenerator = new RandomFirstSolutionGenerator(model);
             PASSI_RIPROVA = model.getExamsNumber() * 20;// * 100;
         }else{
             System.out.println("Provo ad ordinare gli esami per numero di conflitti");
             this.solutionGenerator = new RandomSolutionGenerator(model);
-            this.firstSolutionGenerator = new Alberto2SolutionGenerator(model);
+            this.firstSolutionGenerator = new OrderedSolutionGenerator(model);
             PASSI_RIPROVA = model.getExamsNumber();// * 100;
         }
 
@@ -82,8 +82,8 @@ public class FinalEuristicMichiaUnAltraDue extends IEuristic{
 
 
 
-        listaMigliori = new BestList(DIMENSIONE_LISTA_MIGLIORI);
-        listaInizialiMigliori = new BestList(MAX_SOLUZIONI_INIZIALI_TROVATE);
+        listaMigliori = new BestModelList(DIMENSIONE_LISTA_MIGLIORI);
+        listaInizialiMigliori = new BestModelList(MAX_SOLUZIONI_INIZIALI_TROVATE);
     }
 
     @Override
@@ -100,12 +100,12 @@ public class FinalEuristicMichiaUnAltraDue extends IEuristic{
                        return;
                     }
 
-                    listaInizialiMigliori.add(new ExamPair(model.getActualScore(), model.getAssignmentModel().clone()));
+                    listaInizialiMigliori.add(new ModelPair(model.getActualScore(), model.getAssignmentModel().clone()));
 
                     firstSolutionGenerator.generateFirstSolution();
 
-                    if(solutionGenerator instanceof TabuSearchSolutionGeneratorExtreme){
-                        solutionGenerator = new TabuSearchSolutionGeneratorExtreme(model); //Resetto il tabu generator
+                    if(solutionGenerator instanceof TabuSearchSolutionGenerator){
+                        solutionGenerator = new TabuSearchSolutionGenerator(model); //Resetto il tabu generator
                     }
 
                     passi = 0;
@@ -117,7 +117,7 @@ public class FinalEuristicMichiaUnAltraDue extends IEuristic{
 
                    if(secondiCorrenti > SECONDI_FASE_2){
                        if(listaMigliori.isEmpty()){
-                           listaMigliori.add(new ExamPair(lastPunteggio, migliorModel));
+                           listaMigliori.add(new ModelPair(lastPunteggio, migliorModel));
                        }
                        initFaseTre();
                        return;
@@ -126,7 +126,7 @@ public class FinalEuristicMichiaUnAltraDue extends IEuristic{
                     if(PASSI_NO_MIGLIORAMENTO_MASSIMI < passi){
                        if(listaInizialiMigliori.size() > 0){
                            System.out.println("Finito il miglioramento. Passo al successivo");
-                           listaMigliori.add(new ExamPair(lastPunteggio, migliorModel));
+                           listaMigliori.add(new ModelPair(lastPunteggio, migliorModel));
                            model.changeModel(listaInizialiMigliori.remove(0).getModel());
                            lastPunteggio = Double.MAX_VALUE;
                            passi = 0;
@@ -154,7 +154,7 @@ public class FinalEuristicMichiaUnAltraDue extends IEuristic{
 
                     if(PASSI_NO_MIGLIORAMENTO_MASSIMI < passi){
                         if(listaMigliori.size() > 0){
-                            listaMigliori.add(new ExamPair(lastPunteggio, migliorModel));
+                            listaMigliori.add(new ModelPair(lastPunteggio, migliorModel));
                             model.changeModel(listaMigliori.remove(0).getModel());
                             solutionImprovator = new TabuSearchImprovatorExtreme(model);
                             lastPunteggio = Double.MAX_VALUE;
@@ -186,14 +186,14 @@ public class FinalEuristicMichiaUnAltraDue extends IEuristic{
 
                     if(secondiCorrenti > (SECONDI_FASE_1/2) && listaInizialiMigliori.size() < 5){
                         System.out.println("Ho trovato poche soluzioni. Cambio algoritmo");
-                        firstSolutionGenerator = new Alberto2SolutionGenerator(model);
+                        firstSolutionGenerator = new OrderedSolutionGenerator(model);
                         solutionGenerator = new RandomSolutionGenerator(model);
                         PASSI_RIPROVA = model.getExamsNumber();
                     }
 
                     System.out.println("Riprovo dall'inizio. Conflitti questa volta: " + model.getConflictNumber());
                     firstSolutionGenerator.generateFirstSolution();
-                    solutionGenerator = new TabuSearchSolutionGeneratorExtreme(model);
+                    solutionGenerator = new TabuSearchSolutionGenerator(model);
                     System.out.println("Conflitti di partenza: " + model.getConflictNumber());
                     passi = 0;
 
@@ -212,18 +212,18 @@ public class FinalEuristicMichiaUnAltraDue extends IEuristic{
         //Init fase 3
         System.out.println("Passo alla fase 3");
         solutionImprovator = new TabuSearchImprovatorAlberto(model);
-        listaMigliori.sort(new Comparator<ExamPair>() {
+        listaMigliori.sort(new Comparator<ModelPair>() {
             @Override
-            public int compare(ExamPair examPair, ExamPair t1) {
-                if(examPair.getScore() == t1.getScore()) return 0;
-                if(examPair.getScore() < t1.getScore()){
+            public int compare(ModelPair modelPair, ModelPair t1) {
+                if(modelPair.getScore() == t1.getScore()) return 0;
+                if(modelPair.getScore() < t1.getScore()){
                     return -1;
                 }else{
                     return 1;
                 }
             }
         });
-        for(ExamPair pair: listaMigliori){
+        for(ModelPair pair: listaMigliori){
             model.changeModel(pair.getModel());
             System.out.println("MODELLO: " + model.getActualScore());
         }
@@ -234,11 +234,11 @@ public class FinalEuristicMichiaUnAltraDue extends IEuristic{
 
     private void initFaseDue() {
         fase = 2;
-        listaInizialiMigliori.sort(new Comparator<ExamPair>() {
+        listaInizialiMigliori.sort(new Comparator<ModelPair>() {
             @Override
-            public int compare(ExamPair examPair, ExamPair t1) {
-                if(examPair.getScore() == t1.getScore()) return 0;
-                if(examPair.getScore() < t1.getScore()){
+            public int compare(ModelPair modelPair, ModelPair t1) {
+                if(modelPair.getScore() == t1.getScore()) return 0;
+                if(modelPair.getScore() < t1.getScore()){
                     return -1;
                 }else{
                     return 1;

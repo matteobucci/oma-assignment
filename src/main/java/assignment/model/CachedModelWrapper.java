@@ -5,7 +5,7 @@ import main.java.assignment.scorecalculator.IScoreCalculator;
 
 import java.util.*;
 
-public class FastModelWrapper implements IModelWrapper {
+public class CachedModelWrapper implements IModelWrapper {
 
     private double scoreCache = 0;
     private boolean isScoreValid = false;
@@ -28,7 +28,7 @@ public class FastModelWrapper implements IModelWrapper {
     private Set[] conflictCache;
     private boolean[] cacheOfConflictValid;
 
-    public FastModelWrapper(int slotsNumber, int examsNumber, IScoreCalculator calculator, IDeltaScoreCalculator deltaCalculator){
+    public CachedModelWrapper(int slotsNumber, int examsNumber, IScoreCalculator calculator, IDeltaScoreCalculator deltaCalculator){
         model = new AssignmentModel(slotsNumber,examsNumber);
         this.calculator = calculator;
         this.deltaCalculator = deltaCalculator;
@@ -41,7 +41,7 @@ public class FastModelWrapper implements IModelWrapper {
         clearExamsMatrix();
     }
 
-    public FastModelWrapper(AssignmentModel assignmentModel, IScoreCalculator calculator, IDeltaScoreCalculator deltaCalculator){
+    public CachedModelWrapper(AssignmentModel assignmentModel, IScoreCalculator calculator, IDeltaScoreCalculator deltaCalculator){
         System.out.println("Generazione ModelWrapper a partire da soluzione esistente");
         model = assignmentModel;
 

@@ -8,9 +8,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.assignment.euristic.*;
-import main.java.assignment.model.FastModelWrapper;
+import main.java.assignment.model.CachedModelWrapper;
 import main.java.assignment.model.IModelWrapper;
-import main.java.assignment.model.ModelWrapper;
 import main.java.assignment.scorecalculator.DeltaScoreCalculator;
 import main.java.assignment.scorecalculator.IDeltaScoreCalculator;
 import main.java.assignment.scorecalculator.IScoreCalculator;
@@ -139,7 +138,7 @@ public class Main extends Application {
         IDeltaScoreCalculator deltaCalculator = new DeltaScoreCalculator(false); //Il flag fa stampare o meno i risultati del calculator
 
         //Creo il modello
-        IModelWrapper model = new FastModelWrapper(timeSlotNumber, examNumber, calculator, deltaCalculator);
+        IModelWrapper model = new CachedModelWrapper(timeSlotNumber, examNumber, calculator, deltaCalculator);
 
         //Lettura ESAMI DI OGNI STUDENTE
         Scanner scannerStu = new Scanner(stuFile);
@@ -151,6 +150,7 @@ public class Main extends Application {
         scannerStu.close();
 
 
+        /*
 
         //Avvio la finestra
         Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -159,7 +159,9 @@ public class Main extends Application {
 
         //Visualizzazione a schermo dei risultati
         ModelPresenter presenter = new ModelPresenter(canvasViewer, model);         //Griglia degli esami
-        ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);    //Testo con punteggi
+        ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);    //Testo con punteggio
+
+        */
 
 
 
@@ -173,10 +175,7 @@ public class Main extends Application {
         boolean threadActive = true;
 
         //Questa classe gestisce il comportamento delle azioni
-        //IEuristic euristic = new FirstSolutionsEuristic(model); //Questa euristica genera un sacco di soluzioni e stampa informazioni utili su di queste
-        //IEuristic euristic = new StandardEuristic(model, SEC_RUNNING); //Questa è l'euristica finale che occorre consegnare
-        //IEuristic euristic = new IterationEuristic(model, SEC_RUNNING);
-        IEuristic euristic = new FinalEuristicMichiaUnAltraDue(model, SEC_RUNNING);
+        IEuristic euristic = new MultipleSolutionEuristic(model, SEC_RUNNING);
 
         /*
         #############################################################################################################
