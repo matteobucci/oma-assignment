@@ -1,4 +1,4 @@
-package main.java.assignment.euristic;
+package main.java.assignment.heuristic;
 
 import main.java.assignment.firstsolution.OrderedSolutionGenerator;
 import main.java.assignment.firstsolution.RandomFirstSolutionGenerator;
@@ -12,12 +12,12 @@ import main.java.assignment.util.ModelPair;
 
 import java.util.Comparator;
 
-public class MultipleSolutionEuristic extends IEuristic{
+public class MultipleSolutionHeuristic extends IHeuristic {
 
     int passi = 0;
     int secondiTotali;
 
-    //Variabili passo 0
+    //Variabili passo 1
     int MAX_SOLUZIONI_INIZIALI_TROVATE;
     BestModelList listaInizialiMigliori;
     AssignmentModel migliorModel = null;
@@ -25,15 +25,17 @@ public class MultipleSolutionEuristic extends IEuristic{
     int tempoIniziale = (int) System.currentTimeMillis();
 
     //Variabili passo 2
-    double punteggioModelloPeggiore = Double.MAX_VALUE;
     private int DIMENSIONE_LISTA_MIGLIORI; //La dimensione della lista dei migliori
-    BestModelList listaMigliori;
+    private BestModelList listaMigliori;
 
     //Variabili passo 3
     double lastPunteggio = Double.MAX_VALUE;
 
-    //Passi oltre la quale la tabu search si considera in una zona stagnante
+    //Passi oltre la quale gli algoritmi search si considera in una zona stagnante
     int PASSI_NO_MIGLIORAMENTO_MASSIMI = 0;
+
+    //Passi nei quali si tenta la generazione di una feasable prima di passare ad una nuova soluzione
+    private int PASSI_RIPROVA = 0;
 
 
     //Parametri
@@ -43,11 +45,10 @@ public class MultipleSolutionEuristic extends IEuristic{
     //Numero fase
     int fase = 1;
 
-    //Passi nei quali si tenta la generazione di una feasable prima di passare ad un nuovo esame
-    private int PASSI_RIPROVA = 0;
 
 
-    public MultipleSolutionEuristic(IModelWrapper model, int secondiTotali) {
+
+    public MultipleSolutionHeuristic(IModelWrapper model, int secondiTotali) {
         super(model);
         if(model.getExamsNumber() < 185){
             System.out.println("Provo a generare una soluzione random");
@@ -81,7 +82,6 @@ public class MultipleSolutionEuristic extends IEuristic{
         System.out.println("PASSI_MIGLIORAMENTO_MASSIMI = " + PASSI_NO_MIGLIORAMENTO_MASSIMI);
 
 
-
         listaMigliori = new BestModelList(DIMENSIONE_LISTA_MIGLIORI);
         listaInizialiMigliori = new BestModelList(MAX_SOLUZIONI_INIZIALI_TROVATE);
     }
@@ -101,7 +101,6 @@ public class MultipleSolutionEuristic extends IEuristic{
                     }
 
                     listaInizialiMigliori.add(new ModelPair(model.getActualScore(), model.getAssignmentModel().clone()));
-
                     firstSolutionGenerator.generateFirstSolution();
 
                     if(solutionGenerator instanceof TabuSearchSolutionGenerator){
@@ -154,7 +153,7 @@ public class MultipleSolutionEuristic extends IEuristic{
                         if(listaMigliori.size() > 0){
                             listaMigliori.add(new ModelPair(lastPunteggio, migliorModel));
                             model.changeModel(listaMigliori.remove(0).getModel());
-                            solutionImprovator = new TabuSearchImprovatorExtreme(model);
+                            solutionImprovator = new TabuSearchImprovator(model);
                             lastPunteggio = Double.MAX_VALUE;
                             passi = 0;
                         }
@@ -204,7 +203,7 @@ public class MultipleSolutionEuristic extends IEuristic{
         fase = 3;
         //Init fase 3
         System.out.println("Passo alla fase 3");
-        solutionImprovator = new TabuSearchImprovatorAlberto(model);
+        solutionImprovator = new TabuSearchImprovator(model);
         listaMigliori.sort(new Comparator<ModelPair>() {
             @Override
             public int compare(ModelPair modelPair, ModelPair t1) {

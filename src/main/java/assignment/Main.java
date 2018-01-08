@@ -5,12 +5,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
-import main.java.assignment.euristic.*;
+import main.java.assignment.heuristic.*;
 import main.java.assignment.model.CachedModelWrapper;
-import main.java.assignment.model.IModelWrapper;
 import main.java.assignment.scorecalculator.DeltaScoreCalculator;
-import main.java.assignment.scorecalculator.IDeltaScoreCalculator;
-import main.java.assignment.scorecalculator.IScoreCalculator;
 import main.java.assignment.scorecalculator.ScoreCalculator;
 import org.apache.commons.cli.*;
 
@@ -19,7 +16,7 @@ import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
 
-public class Main extends Application {
+public class Main {
 
     private static final int CANVAS_WIDTH = 800;     //Larghezza finestra
     private static final int CANVAS_HEIGHT = 1040;    //Altezza finestra
@@ -103,12 +100,7 @@ public class Main extends Application {
             return;
         }
 
-        //Faccio partire il programma
-        launch(args);
-    }
 
-    @Override
-    public void start(Stage primaryStage) throws IOException {
 
         int timeSlotNumber = 0, examNumber;
 
@@ -129,36 +121,6 @@ public class Main extends Application {
 
         System.out.println("Numero esami: " + examNumber);
 
-
-        /*
-
-        //Avvio la finestra
-        Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-        setupStage(primaryStage, canvas);
-        CanvasViewer canvasViewer = new CanvasViewer(canvas);
-
-        //Visualizzazione a schermo dei risultati
-        ModelPresenter presenter = new ModelPresenter(canvasViewer, model);         //Griglia degli esami
-        ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);    //Testo con punteggio
-
-        */
-
-
-
-        /*
-        #############################################################################################################
-                                            PARTE MODIFICABILE
-        #############################################################################################################
-        */
-
-        //Disattivare se si vuole provare man mano nuove soluzioni premento invio
-        boolean threadActive = true;
-
-
-        /*
-        #############################################################################################################
-        #############################################################################################################
-        */
 
         int cores = Runtime.getRuntime().availableProcessors();
         CachedModelWrapper[] models = new CachedModelWrapper[cores];
@@ -184,7 +146,7 @@ public class Main extends Application {
 
 
         for(int i=0; i<cores; i++){
-            IEuristic euristic = new MultipleSolutionEuristic(models[i], SEC_RUNNING);
+            IHeuristic euristic = new MultipleSolutionHeuristic(models[i], SEC_RUNNING);
             threads[i] = new EuristicThread(euristic);
             threads[i].start();
             System.out.println("Fatto partire il tread numero " + i);
@@ -235,8 +197,21 @@ public class Main extends Application {
             running = false;
         }).start();
 
+    }
 
-                /*
+
+
+        /*
+
+        //Avvio la finestra
+        Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+        setupStage(primaryStage, canvas);
+        CanvasViewer canvasViewer = new CanvasViewer(canvas);
+
+        //Visualizzazione a schermo dei risultati
+        ModelPresenter presenter = new ModelPresenter(canvasViewer, model);         //Griglia degli esami
+        ScorePresenter scorePresenter = new ScorePresenter(canvasViewer, model);    //Testo con punteggio
+
 
         //Esecuzione automatica dell'euristica.
         new Thread(() -> {
@@ -249,16 +224,6 @@ public class Main extends Application {
         }).start();
 
         */
-
-    }
-
-    private void setupStage(Stage primaryStage, Canvas canvas) {
-        primaryStage.setTitle("OMA Asignment");
-        Group root = new Group();
-        root.getChildren().add(canvas);
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }
 
 
 }

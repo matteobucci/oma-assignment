@@ -12,7 +12,7 @@ import java.util.Random;
 Versione che prova fare cose più malate rispetto a prima
 
  */
-public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
+public class TabuSearchImprovator implements ISolutionImprovator {
 
     /* Parametri della TABU SEARCH */
 
@@ -30,7 +30,7 @@ public class TabuSearchImprovatorExtreme implements ISolutionImprovator {
     private int fallimenti = 0;
 
 
-    public TabuSearchImprovatorExtreme(IModelWrapper model){
+    public TabuSearchImprovator(IModelWrapper model){
         this.model = model;
         int listSize = model.getExamsNumber() * model.getTimeslotsNumber() / 50;
         queue = new LimitedQueue<>(listSize);

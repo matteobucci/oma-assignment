@@ -1,13 +1,13 @@
 package main.java.assignment;
 
-import main.java.assignment.euristic.IEuristic;
+import main.java.assignment.heuristic.IHeuristic;
 import main.java.assignment.model.AssignmentModel;
 
 public class EuristicThread extends Thread{
 
-    IEuristic euristic;
+    IHeuristic euristic;
 
-    public EuristicThread(IEuristic euristic){
+    public EuristicThread(IHeuristic euristic){
         super(() -> {
             while(true) euristic.iterate();
         });

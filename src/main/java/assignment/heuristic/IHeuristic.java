@@ -1,13 +1,12 @@
-package main.java.assignment.euristic;
+package main.java.assignment.heuristic;
 
 import main.java.assignment.firstsolution.IFirstSolutionGenerator;
 import main.java.assignment.improvement.ISolutionImprovator;
 import main.java.assignment.model.AssignmentModel;
 import main.java.assignment.model.IModelWrapper;
-import main.java.assignment.model.ModelWrapper;
 import main.java.assignment.solution.ISolutionGenerator;
 
-public abstract class IEuristic {
+public abstract class IHeuristic {
 
     protected IFirstSolutionGenerator firstSolutionGenerator;
     protected ISolutionGenerator solutionGenerator;
@@ -15,7 +14,7 @@ public abstract class IEuristic {
 
     protected IModelWrapper model;
 
-    public IEuristic(IModelWrapper model){
+    public IHeuristic(IModelWrapper model){
         this.model = model;
     }
 
